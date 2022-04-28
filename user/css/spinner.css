@@ -1,0 +1,121 @@
+@media (min-width: 980px){
+    #loading {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    /* overflow: hidden; */
+    z-index: 5;
+    position: absolute;
+}
+.dot {
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+        border-radius: 50%;
+        animation: breathe 2000ms infinite;
+    }
+     .dot:nth-child(1) {
+        background: red;
+        animation-delay: 100ms;
+    }
+    
+    .dot:nth-child(2) {
+        background: orange;
+        animation-delay: 300ms;
+    }
+    
+    .dot:nth-child(3) {
+        background: yellow;
+        animation-delay: 500ms;
+    }
+    
+    .dot:nth-child(4) {
+        background: green;
+        animation-delay: 700ms;
+    }
+    
+    .dot:nth-child(5) {
+        background: blue;
+        animation-delay: 900ms;
+    }
+    
+    .dot:nth-child(6) {
+        background: purple;
+        animation-delay: 1100ms;
+    }
+    @keyframes breathe {
+        50% {
+            width: 0;
+            height: 0;
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    #loading {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 5;
+        position: absolute;
+    }
+    .dot {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            border-radius: 50%;
+            animation: breathe 2000ms infinite;
+        }
+         .dot:nth-child(1) {
+            background: red;
+            animation-delay: 100ms;
+        }
+        
+        .dot:nth-child(2) {
+            background: orange;
+            animation-delay: 300ms;
+        }
+        
+        .dot:nth-child(3) {
+            background: yellow;
+            animation-delay: 500ms;
+        }
+        
+        .dot:nth-child(4) {
+            background: green;
+            animation-delay: 700ms;
+        }
+        
+        .dot:nth-child(5) {
+            background: blue;
+            animation-delay: 900ms;
+        }
+        
+        .dot:nth-child(6) {
+            background: purple;
+            animation-delay: 1100ms;
+        }
+        @keyframes breathe {
+            50% {
+                width: 0;
+                height: 0;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    
+}

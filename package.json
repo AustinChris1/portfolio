@@ -1,0 +1,11 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/index.js",
+  "scripts": {
+    "sass": "sass --style expanded sass/main.scss sass/main.css"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,18 @@
+html {
+  --bg: #fff;
+  --color: #000;
+}
+
+html[dark] {
+  --bg: #000;
+  color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: var(--bg);
+    color: var(--color);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
