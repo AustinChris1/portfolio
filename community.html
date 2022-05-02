@@ -21,7 +21,7 @@
 
 <body>
     <main>
-        <div id="loading">
+        <!-- <div id="loading">
             <span class="dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
@@ -30,7 +30,7 @@
             <span class="dot"></span>
         </div>
 
-        <div class="content">
+        <div class="content"> -->
             <div id="head">
                 <div class="Top">
                     <img src="assets/specweblogo.png" class="logo">
@@ -261,14 +261,13 @@
 <style>
     .wrapper {
       width: 100%;
-      display: flex;
-      flex-direction: row;
+      display: grid !important;
+            /* margin-right: 5rem !important; */
+            grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
     }
     .cols {
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex;
-      flex-direction: row;
       margin: 0, 5%, 3%, 5%;
       /* -ms-flex-wrap: wrap;
       flex-wrap: wrap; */

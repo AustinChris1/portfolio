@@ -21,8 +21,8 @@ include 'navbar.php';
 
             <a href="logout.php" title="login">Log Out</a>
             <?php
-            if($_SESSION['auth_role'] == 'admin' or 'super'):
-            ?>
+            if($_SESSION['auth_role'] !== ''):
+              ?>
             <a href="../admin/">Admin Portal</a>
             <?php
             endif;

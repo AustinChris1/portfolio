@@ -2,6 +2,8 @@
  <?php
 
 require_once 'databases/db_connect.php';
+include_once 'visitor_log.php';
+
 session_start();
 // include 'includes/config.php';
 include 'includes/header.php';

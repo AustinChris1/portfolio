@@ -1,6 +1,16 @@
 
 
+<?php
+                if(isset($_SESSION['auth_user']['id'])){
+                  $user_id = $_SESSION['auth_user']['id'];
 
+                  $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
+                  if ($profilequery->num_rows > 0) {
+
+                      foreach ($profilequery as $user) {
+
+
+?>
 </head>
 <body>
       <!-- <div id="loading">
@@ -52,7 +62,11 @@
       </section>
       <div class="mobile">
         <div class="mobnav">
-          <span> <i class="fa fa-user-circle"></i></span>
+        <span class="profimg">                   
+  <a href="../user/profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 3rem; height: 3.5rem; border-radius: 50%; border-color: #fff;  ">
+                <?=$_SESSION['auth_user']['username'];?>
+              </a>
+                </span>
           <ul>
           <a href="index">HOME</a>
         <?php
@@ -78,3 +92,8 @@
           </ul>
         </div>
       </div>
+<?php
+                      }
+                    }
+                  }
+?>

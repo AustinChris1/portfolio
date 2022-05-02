@@ -9,6 +9,8 @@ if (isset($_SESSION['auth'])){
 }
 require_once 'databases/db_connect.php';
 
+$refer = $db->real_escape_string($_GET['refer']);
+
 
 ?>
 
@@ -35,11 +37,13 @@ require_once 'databases/db_connect.php';
         <label for="">Email</label>
 <input class="reginput" type="email" name="email" placeholder="Email" autofocus="true" required/><br /><br />
 <label for="">Phone Number</label>
-<input name="phone" type="tel" id="phone" class="reginput" pattern="[0-9]{11}" title="Not more or less than 11 digits" required/>
+<input name="phone" type="tel" id="phone" class="reginput" pattern="[0-9]{11}" title="Not more or less than 11 digits" required/> <br /><br />
 <label for="passoword">Password</label>
 <input class="reginput" type="password" name="password" placeholder="Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/><i class="bi bi-eye-slash" id="togglePassword"></i><br /><br />
 <label for="">Confirm Password</label>
-<input class="reginput" type="password" name="confirm_password" placeholder="Confirm Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/><i class="bi bi-eye-slash" id="togglePassword"></i>
+<input class="reginput" type="password" name="confirm_password" placeholder="Confirm Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/><i class="bi bi-eye-slash" id="togglePassword"></i> <br /><br />
+<label for="">Refferer</label>
+<input class="reginput" type="text" name="refer" placeholder="Refferer" value="<?php echo $refer;?>" id="refer" readonly/>
           <br /><br />
           <input  type="checkbox"  id="terms"  class="terms"  name="terms"  value="terms"  required/>
           <label for="terms" class="terms"

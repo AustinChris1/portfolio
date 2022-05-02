@@ -7,79 +7,75 @@ require_once 'databases/db_connect.php';
 
 
 
-if (isset($_POST['login'])) {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-  $username = htmlentities($username);
-      $username = strip_tags($username);
-      $username = $db->real_escape_string($username);
-  
-  $password = htmlentities($password);
-      $password = strip_tags($password);
-      $password = $db->real_escape_string($password);
-      $password = md5($password);
+    $username = htmlentities($username);
+    $username = strip_tags($username);
+    $username = $db->real_escape_string($username);
 
-      //query the database
+    $password = htmlentities($password);
+    $password = strip_tags($password);
+    $password = $db->real_escape_string($password);
+    $password = md5($password);
 
-      $query = $db->query("SELECT * from spectradb WHERE username='$username' and password='$password' LIMIT 1");
-      
-      if ($query->num_rows > 0) {
+    //query the database
 
-        $loginrow = $query->fetch_array();
-        if ($loginrow['verify_status']== '1'){
+    $query = $db->query("SELECT * from spectradb WHERE username='$username' and password='$password' LIMIT 1");
 
-          foreach($query as $data){
-            $user_id = $data['id'];
-            $username =$data['username'];
-            $email = $data['email'];
-            $usertype = $data['usertype'];
-          }
-  
-          $_SESSION['auth'] = true;
-          $_SESSION['auth_role'] = "$usertype"; 
-          $_SESSION['auth_user'] = [
-            'id'=> $user_id,
-            'username' => $username,
-            'email' => $email,
-            // 'user_image' => $user_image,
+    if ($query->num_rows > 0) {
+
+      $loginrow = $query->fetch_array();
+      if ($loginrow['verify_status'] == '1') {
+
+        foreach ($query as $data) {
+          $user_id = $data['id'];
+          $username = $data['username'];
+          $email = $data['email'];
+          $usertype = $data['usertype'];
+          $referrer = $data['referrer'];
+        }
+
+        $_SESSION['auth'] = true;
+        $_SESSION['auth_role'] = "$usertype";
+        $_SESSION['auth_user'] = [
+          'id' => $user_id,
+          'username' => $username,
+          'email' => $email,
+          'referrer' => $referrer
+          // 'user_image' => $user_image,
         ];
-       if ($_SESSION['auth_role'] == 'admin'){
+        if ($_SESSION['auth_role'] == 'admin') {
           $_SESSION['message'] = "Hello Admin, Welcome To Dashboard";
           header("Location: admin/");
           exit(0);
-        }
-        elseif ($_SESSION['auth_role'] == ''){
+        } elseif ($_SESSION['auth_role'] == '') {
           $_SESSION['message'] = "Login Successful";
           header('Location: user/home');
           exit(0);
-        }
-        elseif ($_SESSION['auth_role'] == 'super'){
+        } elseif ($_SESSION['auth_role'] == 'super') {
           $_SESSION['message'] = "Hello Admin, Welcome To Dashboard";
           header('Location: admin/');
           exit(0);
         }
-                              
-        }        
-        else{
-          $_SESSION['message'] = "Please verify your email address to login";
+        $query = $db->query("UPDATE spectradb SET last_activity = NOW() WHERE id = '$user_id'");
+      } else {
+        // $_SESSION['login_attempts'] += 1;
+        $_SESSION['message'] = "Please verify your email address to login";
         header('Location: login');
-			exit();
-
-        }
-
-  
-        }
-
-        else{
-          $_SESSION['message'] = "Incorrect Username or Password";
-        header('Location: login');
-      exit(0);
+        exit();
       }
-
-
-
+    } else {
+      $_SESSION['login_attempts'] += 1;
+      $_SESSION['message'] = "Incorrect Username or Password";
+      header('Location: login');
+      exit(0);
+    }
+  }
 }
+
 // else{
 //   $_SESSION['message'] = "You are not allowed to access here";
 //   header('Location: login.php');

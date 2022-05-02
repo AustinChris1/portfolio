@@ -221,6 +221,7 @@ display: inline-block;
     }
     .profimg a{
       color: #fff;
+      text-decoration: none;
     }
     .textanim{
       background-color: #E1D9D1;

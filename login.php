@@ -7,13 +7,14 @@ require_once 'databases/db_connect.php';
 session_start();
 // include 'includes/config.php';
 include 'includes/header.php';
+
 if (isset($_SESSION['auth'])){
   $_SESSION['message'] = "You are already logged in";
   header('Location:user/home');
   exit();
+
+
 }
-
-
 ?>
 <title>Login</title>
     <?php
@@ -43,7 +44,19 @@ if (isset($_SESSION['auth'])){
             <i class="bi bi-eye-slash" id="togglePassword"></i>            <br />
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
                      <!-- <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdYB6ceAAAAADk6Wt_c7R6jmZMb-DZ-fwbfFff0" id="captcha"></div> -->
- <button type="submit" id="submit" name="login">Login</button>
+ <?php
+include "includes/timer.php";
+  if($_SESSION['login_attempts'] > 2){
+    $_SESSION['locked'] = time();
+echo "<p> Please wait for 30 seconds</p>";
+ }
+
+else{
+ ?>
+                     <button type="submit" id="submit" name="login">Login</button>
+<?php
+}
+?>
           </form>
           <p class="reglog">
             Don't have an account? Register <a href="register.php">here</a>

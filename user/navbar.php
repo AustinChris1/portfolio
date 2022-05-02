@@ -169,7 +169,7 @@ include_once '../databases/db_connect.php';
             <a href="logout">Log Out</a>
             <a href="">Notifications<i class="fas fa-bell" id="bell"></i></a>
             <?php
-            if($_SESSION['auth_role'] == 'admin' or 'super'):
+            if($_SESSION['auth_role'] !== ''):
             ?>
             <a href="../admin/">Admin Portal</a>
             <?php

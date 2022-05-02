@@ -146,6 +146,17 @@ display: inline-block;
        -webkit-background-clip: text;
        color: transparent;    
      }
+     .profimg{
+      font-size: 20px;
+      padding: 0;
+      margin: 0;
+      color: #fff;
+    }
+    .profimg a{
+      color: #fff;
+      text-decoration: none;
+    }
+
      #Specweb{
       background-image: linear-gradient( 135deg, #D3D3D3 25%, white 100%);  
       overflow: hidden;

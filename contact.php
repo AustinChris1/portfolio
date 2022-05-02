@@ -1,13 +1,97 @@
+<?php
+session_start();
+include_once 'databases/db_connect.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/spinner.css" />
+    <link rel="stylesheet" href="../css/phoneview.css" />
+    <link rel="stylesheet" href="../css/tabview.css" />
+    <link rel="stylesheet" href="../css/mobdesktop.css" />
+    <!-- <link rel="stylesheet" href="parallax.css" /> -->
+    <link rel="icon" href="../assets/image-removebg-preview.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Contact Us</title>
-    <?php
-      include 'includes/header.php';
-      include 'includes/navbar.php';
-      ?>
+</head>
+<body>
+    <div id="loading">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+    <div class="content">
+          <div id="head">
+            <div class="Top">
+              <a href="home.php">
+                <span class="spec">SPECTRA WEB-X</span> <br />
+                <br />
+                <p class="specd">Digitalizing The World</p></a>
+              </div>
+            <div class="navbar">
+              <nav>
+                <a href="#about" title="Community">Our Community</a>
+                <a href="contact.php" title="Contact">Contact Us</a>
+                <?php
+                if(isset($_SESSION['auth_user'])):
+                ?>
+
+<a href="../courses/">Courses</a>
+<a href="../user/logout" title="logout">Log Out</a>
+
+            <?php else :?>
+            <a href="login" title="login">Log In</a>
+            <a href="register" title="New Account">Create Free Account</a>
+                      <?php endif;?>
+              </nav>
+            </div>
+            <span class="menu">
+              <i class="fas fa-bars"></i>
+            </span>
+            <span class="close">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+                      </span>
+          </div>
+        <div class="mobile">
+          <div class="mobnav">
+            <span> <i class="fa fa-user-circle"></i></span>
+            <ul>
+              <a href="#Community" title="Community">OUR COMMUNITY</a>
+              <a href="contact.php" title="Contact">CONTACT US</a>
+              <a href="#products" title="Products">PRODUCTS & SERVICES</a>
+              <?php
+                if(isset($_SESSION['auth_user'])):
+                ?>
+
+            <a href="logout" title="logout">LOG OUT</a>
+
+            <?php else :?>
+
+            <a href="login" title="login">LOG IN</a>
+            <a href="register" title="New Account">CREATE NEW ACCOUNT</a>
+            <?php endif;?>
+
+            </ul>
+          </div>
+        </div>
 <section id="touch">
     <div class="cont">Get In Touch With Us
     <p class="get"> And experience the globe in your hands</p>
     </div>
-    <img src="assets/contact.png">
+    <img src="../assets/contact.png">
 </section>
 <section id="contform">
   <div class="hello"><b>Say Hello</b> <br>
@@ -28,32 +112,85 @@
             </svg>
           </div>
           <p>Submit</p>
-        </button> 
-      </form>
-
+        </button>    </form>
 </section>
 
-<?php
-include 'includes/footer.php';
-?>      
-<script src="js/ball.js"></script>
-<script>
-          setTimeout(function () {
-            $("#loading").hide();
-          }, 3100);
-          setTimeout(function () {
-            $(".content").show();
-          }, 3000);
-        </script>
-      </div>
-    </main>
-
-    <script src="../js/nav.js"></script>
-    <script src="../js/text.js"></script>
-    <script src="../js/bootstrap5.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
+
+
+
+    </div>
+    <section id="beforefoot">
+<div class="quicklinks"><h2>Quick Links</h2>
+<br>
+<a href="#">Our Community</a>
+<a href="about.php">About Us</a>
+<a href="contact.php">Contact Us</a>
+<a href="register.php">Join Us</a>
+</div>
+<div class="quick">
+  <h2>Services</h2> <br>
+<a href="#" title="Exchange">Spectra Exchange</a>
+                <a href="#" title="Web Development">Web Development</a>
+                <a href="#" title="Artificial Intelligence">Artificial Intelligence</a>
+                <a href="#products" title="Airdrops">Airdrop Updates</a>
+                <a href="login.php" title="Game Development">Game Development</a>
+                <a href="register.php" title="Graphics Design">Graphics Design</a>
+
+</div>
+<div class="bfr">
+  <div class="fia">
+    <div class="fi">
+      <a href="https://twitter.com/IwuAustinChris1" target="_blank"><i class="fa fa-twitter" id="twitter"></i></a>
+  </div>
+<div class="fi">        
+<a href="https://wa.me/+2348184065307/" target="_blank"> <i class="fa fa-whatsapp" id="whatsapp"></i></a>
+</div>
+<div class="fi">        
+<a href="https://facebook/spectrawebx/" target="_blank"><i class="fa fa-facebook" id="fb"></i></a>
+</div>
+<div class="fi">        
+<a href="https://linkedin.com/" target="_blank"><i class="fa fa-linkedin" id="linkedin"></i></a>
+</div>
+<div class="fi">        
+<a href="https://instagram.com/iwuaustinchris/" target="_blank"><i class="fa fa-instagram" id="linkedin"></i></a>
+</div>
+<div class="fi">        
+<a href="https://t.me/AustinChris1/" target="_blank"><i class="fa fa-telegram" id="telegram"></i></a>
+</div>
+</div>
+<div class="subscribe">
+  <form action="index.php" method="post">
+  <label for="email">Subscribe To Our Newsletter</label> <br>
+  <input type="email" name="email" placeholder="Email" class="subemail">
+  <button type="submit" class="subb">
+  <span>Subscribe</span>
+</button>
+</form>
+</div>
+</div>
+</section>
+<footer>
+© 2022 | All Rights Reserved | Spectra Web-X
+</footer>
+
+
+    <script>
+        setTimeout(function () {
+          $("#loading").hide();
+        }, 2100);
+        setTimeout(function () {
+          $(".content").show();
+        }, 2000);
+      </script>
+    </div>
+
+  <script src="../js/nav.js"></script>
+<script src="../js/ball.js"></script>
+
+</body>
+</html>
 <style>
     body{
         overflow: hidden;
@@ -112,5 +249,4 @@ include 'includes/footer.php';
 .button:hover .icon {
  width: calc(100% - 0.85rem);
  border-radius: 0.5em;
-}
-</style>
+}</style>
