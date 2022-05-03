@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once 'databases/db_connect.php';
+include 'databases/captcha.php';
+include_once 'includes/timer.php';
 ?>
 
 <?php
@@ -21,10 +23,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $db->real_escape_string($password);
     $password = md5($password);
 
+$user_ip_address = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
+    $request = "https://www.google.com/recaptcha/api/siteverify?secret={$secretkey}&response={$recaptchaResponse}&{$user_ip_address}";
+    $content = file_get_contents($request);
+    $json = json_decode($content);
+    if($json -> success == "true"){
+//get server related info
+$loginact = $db->prepare("UPDATE spectradb SET user_ip_address='$user_ip_address', user_agent='$user_agent', last_activity= NOW() WHERE username='$username'");
+
+$loginact -> bind_param("ssss", $user_ip_address, $user_agent);
+
+$insert = $loginact->execute();
+
     //query the database
 
     $query = $db->query("SELECT * from spectradb WHERE username='$username' and password='$password' LIMIT 1");
-
+   
+    // $loginact = $db->query("UPDATE spectradb SET last_activity = NOW() WHERE username='$username'");
+if($loginact){
     if ($query->num_rows > 0) {
 
       $loginrow = $query->fetch_array();
@@ -60,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           header('Location: admin/');
           exit(0);
         }
-        $query = $db->query("UPDATE spectradb SET last_activity = NOW() WHERE id = '$user_id'");
       } else {
         // $_SESSION['login_attempts'] += 1;
         $_SESSION['message'] = "Please verify your email address to login";
@@ -73,6 +92,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       header('Location: login');
       exit(0);
     }
+  }
+  else{
+    $_SESSION['message'] = "Failed";
+    header('Location: login');
+    exit(0);
+
+  }
+}
+else{
+  $_SESSION['message'] = "Captcha Failed";
+  header('Location: login');
+  exit(0);
+
+}
   }
 }
 

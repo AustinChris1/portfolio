@@ -24,8 +24,8 @@ function sendemail_verify($name, $email, $verify_token)
   $mail->SMTPSecure = "ssl";
   $mail->Port = 465;
 
-  $mail->Username   = $env["gmail_username"];
-  $mail->Password   = $env["gmail_password"];
+  $mail->Username   = $env_pass;
+  $mail->Password   = $env_mail;
 
   $mail->setFrom("spectrawebx@gmail.com", "Spectra Web-X");
   $mail->addAddress($email);
@@ -45,34 +45,40 @@ function sendemail_verify($name, $email, $verify_token)
   $mail->Body = $email_template;
   $mail->send();
 }
+function updateRefferal($db, $refer)
+{
+  $updateref = $db->query("SELECT * FROM spectradb WHERE username = '$refer'");
+  // $uresult = mysqli_query($GLOBALS['con'], $updateref);
+  if ($updateref) {
+    if ($updateref->num_rows > 0) {
+      $result_fetch = $updateref->fetch_assoc();
+      $bal = $result_fetch['ref_bal'] + 1000;
+      $bal_email = $result_fetch['email'];
+      $update_bal = $db->query("UPDATE spectradb SET ref_bal = '$bal' WHERE email='$bal_email'");
+      if (!$update_bal){
+        $_SESSION['message'] = "Something went wrong!";
+        header("Location: register");
+        exit();
+      }
+    } else {
+      $_SESSION['message'] = "Invalid User";
+      header("Location: register");
+      exit();
+    }
+  }
+  else{
+    $_SESSION['message'] = "Something went wrong!";
+    header("Location: register");
+    exit();
+
+  }
+}
+
 
 if (isset($_POST['register'])) {
 
 
 
-  function updateRefferal()
-  {
-    $updateref = "SELECT * FROM `spectradb` WHERE `username` = '$_POST[refer]'";
-    $uresult = mysqli_query($GLOBALS['con'], $updateref);
-    if ($uresult) {
-      if (mysqli_num_rows($uresult) == 1) {
-        $result_fetch = mysqli_fetch_assoc($uresult);
-        $bal = $result_fetch['ref_bal'] + 1000;
-        $bal_email = $result_fetch['email'];
-        $update_bal = "UPDATE `spectradb` SET `ref_bal` = '$bal' WHERE `email`='$bal_email'";
-        if (!mysqli_query($GLOBALS['con'], $update_bal)) {
-          $_SESSION['message'] = "Something went wrong!";
-          header("Location: register");
-          exit();
-        }
-      }
-     else {
-      $_SESSION['message'] = "Invalid User";
-      header("Location: register");
-      exit();
-    }
-    }
-  }
 
 
   $name = $_POST['name'];
@@ -146,7 +152,7 @@ if (isset($_POST['register'])) {
       exit();
     } else {
       if ($refer != '') {
-        updateRefferal();
+        updateRefferal($db, $refer);
       }
 
 

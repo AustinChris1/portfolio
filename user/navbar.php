@@ -1,100 +1,6 @@
 <?php
 include_once '../databases/db_connect.php';
 ?>
-    <!-- <div id="loading">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-
-    <div class="content"> -->
-        <!-- if(isset($_SESSION['auth'])){
-            $user_id = $_GET['id'];
-
-        
-                        $profileidquery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
-
-    } -->
-<!-- 
-
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <div class="Top">
-                    <img src="../assets/specweblogo.png" class="logo">
-
-                    <span class="spec">SPECTRA WEB-X</span> <br />
-                    <p class="specd">Digitalizing The World</p>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
-                    <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="home">Home</a>
-                        </li>              
-                          <?php
-                if(isset($_SESSION['auth_user'])):
-                ?>
-
-                        <li class="nav-item">                        
-                            <a class="nav-link fs-6 ms-4" href='profile'>Profile</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="../blog">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="contact">Community</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="../courses/">Courses</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4" href="logout">Log Out</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-6 ms-4">Notifications<i class="fas fa-bell" id="bell"></i></a>
-                        </li>
-                        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                        <li class="nav-item dropdown bg-dark">
-                            <a class="nav-link fs-6 ms-4 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" >
-                                            <?=$_SESSION['auth_user']['username'];
-                
-                ?>
-</a>                            
-                            <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDropdown">
-
-                </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="profile">My Profile</a></li>
-                        <li><a class="dropdown-item" href="logout">Log Out</a></li>
-                        <!-- <li><hr class="dropdown-divider" /></li> -->
-                            <?php endif;?>
-<!--  
-                    </ul>
-
-
-                    </ul>
-                </div>
-            </div>
-        </nav>  -->
-
-
-        
-
-
-
 </head>
 <body>
       <!-- <div id="loading">
@@ -141,7 +47,6 @@ include_once '../databases/db_connect.php';
 
                 </a>
 
-
           </nav>
         </div>
 
@@ -156,8 +61,8 @@ include_once '../databases/db_connect.php';
       <div class="mobile">
         <div class="mobnav">
 <span class="profimg">                   
-  <a href="profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 3rem; height: 3.5rem; border-radius: 50%; border-color: #fff;  ">
-                <?=$_SESSION['auth_user']['username'];?>
+  <a href="profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 4.5rem; height: 5rem; border-radius: 50%; border-color: #fff;  ">
+                <br><?=$_SESSION['auth_user']['username'];?>&#128526;
               </a>
                 </span>
           <ul>                           
@@ -168,6 +73,8 @@ include_once '../databases/db_connect.php';
             <a href="../courses/" >Courses</a>
             <a href="logout">Log Out</a>
             <a href="">Notifications<i class="fas fa-bell" id="bell"></i></a>
+            <a href="refferal_stats">Settings<i class="fas fa-cog" id="settings"></i></a>
+
             <?php
             if($_SESSION['auth_role'] !== ''):
             ?>
@@ -176,7 +83,9 @@ include_once '../databases/db_connect.php';
             endif;
             ?>
 
-
+<a href=""><?= $user['user_agent']?></a>
+<a href=""><?= $user['user_ip_address']?></a>
+<a href=""><?= $user['last_activity']?></a>
 
           </ul>
         </div>

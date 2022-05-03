@@ -7,7 +7,12 @@ require_once 'databases/db_connect.php';
 session_start();
 // include 'includes/config.php';
 include 'includes/header.php';
+include 'databases/captcha.php';
+include "includes/timer.php";
 
+?>
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+ <?php
 if (isset($_SESSION['auth'])){
   $_SESSION['message'] = "You are already logged in";
   header('Location:user/home');
@@ -43,9 +48,8 @@ if (isset($_SESSION['auth'])){
             <input type="password" name="password" id="password" class="logininput" placeholder="Password" autofocus="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
             <i class="bi bi-eye-slash" id="togglePassword"></i>            <br />
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
-                     <!-- <div class="g-recaptcha brochure__form__captcha" data-sitekey="6LdYB6ceAAAAADk6Wt_c7R6jmZMb-DZ-fwbfFff0" id="captcha"></div> -->
- <?php
-include "includes/timer.php";
+            <div class="g-recaptcha" data-sitekey="<?php echo $sitekey;?>" id="captcha"></div>
+             <?php
   if($_SESSION['login_attempts'] > 2){
     $_SESSION['locked'] = time();
 echo "<p> Please wait for 30 seconds</p>";
@@ -53,7 +57,7 @@ echo "<p> Please wait for 30 seconds</p>";
 
 else{
  ?>
-                     <button type="submit" id="submit" name="login">Login</button>
+    <button type="submit" id="submit" name="login">Login</button>
 <?php
 }
 ?>
