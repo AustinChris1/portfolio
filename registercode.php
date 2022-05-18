@@ -100,6 +100,7 @@ if (isset($_POST['register'])) {
 
   $username = htmlentities($username);
   $username = strip_tags($username);
+  $username = strtolower($username);
   $username = $db->real_escape_string($username);
 
   $password = htmlentities($password);

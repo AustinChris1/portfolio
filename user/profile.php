@@ -62,7 +62,11 @@ include 'navbar.php';
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Registration Date</label>
-                                                <input type="text" name="phone" readonly value="<?= date('d-M-Y', strtotime($user['created'])); ?>" class="form-control">
+                                                <input type="text" name="" readonly value="<?= date('d-M-Y', strtotime($user['created'])); ?>" class="form-control">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="">Ip Address</label>
+                                                <input type="text" name="" readonly value="<?= $user['user_ip_address'] ?>" class="form-control">
                                             </div>
                                             <?php
                                             $coursequery = $db->query("SELECT * FROM courses");

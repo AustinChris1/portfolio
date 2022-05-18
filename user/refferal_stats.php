@@ -8,13 +8,14 @@ if($_SESSION['auth_user']){
     $username = $_SESSION['auth_user']['username'];
     $referrer = $_SESSION['auth_user']['referrer'];
     
-    if(isset($_SESSION['locked'])){
+        if(isset($_SESSION['locked'])){
       $diff = time() - $_SESSION['locked'];
-      if($diff > 86400){
+      if($diff > 360){
         unset($_SESSION['locked']);
 
       }
     }  
+
     function updateMinedBalance($db, $username)
 {
   $updateBalance = $db->query("SELECT * FROM spectradb WHERE username = '$username'");
@@ -62,8 +63,37 @@ if($_SESSION['auth_user']){
                     <h4>Referral Statistics
                       <?php
                       if(!$_SESSION['locked']):?>
-   <form action="refferal_stats" method="post"> <input type="submit" name="mine" value="Mine" class="btn btn-primary float-end"></form>
-                    <?php  else: echo "You have already mined"; endif;?></h4>
+   <form action="refferal_stats" method="post"> <input type="submit" name="mine" value="Mine" id="startBtn" class="btn btn-primary float-end btn-lg btn-block" onsubmit="onFormSubmit();"></form>
+                    <?php  else:?> 
+                      <p id="countdown" class="float-end"><span id="displayHours">00<span>:</span></span><span id="displayMinutes">00<span>:</span></span><span id="displaySeconds">00<span>:</span></span>
+                      <script>
+                        function onFormSubmit() {
+    event.preventDefault();
+ 
+    console.log("Mined");
+};
+let displayHours = document.querySelector('#displayHours');
+let displayMinutes = document.querySelector('#displayMinutes');
+let displaySeconds = document.querySelector('#displaySeconds');
+let startBtn = document.querySelector('#startBtn');
+
+let myTimer;
+let myHours = 0;
+let myMinutes = 0;
+let mySeconds = 0;
+let myCounter = 0;
+
+startBtn.addEventListener('click', function(){
+myTimer = setInterval(function(){
+myCounter++;
+mySeconds = myCounter;
+
+displaySeconds.innerHTML = mySeconds;
+},60)
+})
+      </script>
+
+                      <?php endif;?></h4>
                 </div>
                 <div class="card-body">
 

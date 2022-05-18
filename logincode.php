@@ -8,7 +8,6 @@ include_once 'includes/timer.php';
 <?php
 
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -31,7 +30,7 @@ $user_agent = $_SERVER['HTTP_USER_AGENT'];
     $request = "https://www.google.com/recaptcha/api/siteverify?secret={$secretkey}&response={$recaptchaResponse}&{$user_ip_address}";
     $content = file_get_contents($request);
     $json = json_decode($content);
-    if($json -> success == "true"){
+    // if($json -> success == "true"){
 //get server related info
 $loginact = $db->prepare("UPDATE spectradb SET user_ip_address='$user_ip_address', user_agent='$user_agent', last_activity= NOW() WHERE username='$username'");
 
@@ -39,11 +38,21 @@ $loginact -> bind_param("ssss", $user_ip_address, $user_agent);
 
 $insert = $loginact->execute();
 
+$browser = get_browser(null, true);
+    $browser_info = $browser["browser"] . " " . $browser["device_type"] . " " . $browser["platform"];
+ 
+    $user_ip = getenv('REMOTE_ADDR');
+    $user_ip = "197.210.227.38";
+ 
+    $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
+    $country = $geo["geoplugin_countryName"];
+    $city = $geo["geoplugin_city"];
+    $last_login_location = $country . ", " . $city;
     //query the database
 
     $query = $db->query("SELECT * from spectradb WHERE username='$username' and password='$password' LIMIT 1");
    
-    // $loginact = $db->query("UPDATE spectradb SET last_activity = NOW() WHERE username='$username'");
+
 if($loginact){
     if ($query->num_rows > 0) {
 
@@ -67,6 +76,13 @@ if($loginact){
           'referrer' => $referrer
           // 'user_image' => $user_image,
         ];
+                 setcookie('logincookie', $_SESSION['auth_user']['id'], time()+60*60*24*30);
+          setcookie('logincookie_name', $_SESSION['auth_user']['username'], time()+60*60*24*30);
+          
+ $trust = $db->query("INSERT INTO devices (user_id, browser_info, last_login, last_login_location) VALUES ('" . $_SESSION['auth_user']['id'] . "', '" . $browser_info . "', NOW(), '" . $last_login_location . "')");
+        if($trust){
+          if(isset($_COOKIE['logincookie'])){
+
         if ($_SESSION['auth_role'] == 'admin') {
           $_SESSION['message'] = "Hello Admin, Welcome To Dashboard";
           header("Location: admin/");
@@ -80,6 +96,14 @@ if($loginact){
           header('Location: admin/');
           exit(0);
         }
+        }
+      }
+      else{
+        $_SESSION['message'] = "Trust Failed";
+        header('Location: login');
+        exit(0);
+      }
+      
       } else {
         // $_SESSION['login_attempts'] += 1;
         $_SESSION['message'] = "Please verify your email address to login";
@@ -99,45 +123,20 @@ if($loginact){
     exit(0);
 
   }
-}
-else{
-  $_SESSION['message'] = "Captcha Failed";
-  header('Location: login');
-  exit(0);
+// }
+// else{
+//   $_SESSION['message'] = "Captcha Failed";
+//   header('Location: login');
+//   exit(0);
 
-}
+// }
   }
 }
 
-// else{
-//   $_SESSION['message'] = "You are not allowed to access here";
-//   header('Location: login.php');
-//   exit();
-// }
-// $recaptcha = $_POST['g-recaptcha-response'];
-// $res = reCaptcha($recaptcha);
-// if($res['success']){
-//   // Send email
-// }else{
-//   // Error
-// }
-// function reCaptcha($recaptcha){
-//   $secret = "6LdYB6ceAAAAAHeagLJGAdDa87rHEQq1j2TjsjF1";
-//   $ip = $_SERVER['REMOTE_ADDR'];
+$browser = get_browser(null, true);
+//     $browser_info = $browser["browser"] . " " . $browser["device_type"] . " " . $browser["platform"];
+// echo $browser_info;
 
-//   $postvars = array("secret"=>$secret, "response"=>$recaptcha, "remoteip"=>$ip);
-//   $url = "https://www.google.com/recaptcha/api/siteverify";
-//   $ch = curl_init();
-//   curl_setopt($ch, CURLOPT_URL, $url);
-//   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//   curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-//   curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
-//   $data = curl_exec($ch);
-//   curl_close($ch);
-
-//   return json_decode($data, true);
-// }
-
-
+print_r($browser);
 ?>
 

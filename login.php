@@ -13,17 +13,18 @@ include "includes/timer.php";
 ?>
  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
  <?php
-if (isset($_SESSION['auth'])){
-  $_SESSION['message'] = "You are already logged in";
+if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
+    $_SESSION['message'] = "You are already logged in";
   header('Location:user/home');
   exit();
 
-
+// setcookie('logincookie', $_SESSION['auth_user'], time()+30);
 }
 ?>
 <title>Login</title>
+
     <?php
-      include 'includes/navbar.php'
+      include 'includes/navbar.php';
       ?>
 
       <section id="login">
@@ -47,6 +48,10 @@ if (isset($_SESSION['auth'])){
             /><br /><br /><i class="fas fa-lock" id="logi"></i>
             <input type="password" name="password" id="password" class="logininput" placeholder="Password" autofocus="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
             <i class="bi bi-eye-slash" id="togglePassword"></i>            <br />
+            <input  type="checkbox"  id="terms"  class="terms"  name="terms"  required/>
+          <label for="terms" class="terms"
+            >Remeber Me </label
+          ><br /><br />
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
             <div class="g-recaptcha" data-sitekey="<?php echo $sitekey;?>" id="captcha"></div>
              <?php
@@ -96,6 +101,13 @@ togglePassword.addEventListener("click", function () {
           setTimeout(function () {
             $(".content").show();
           }, 3000);
+
+          function onFormSubmit() {
+    event.preventDefault();
+ 
+    console.log("Mined");
+}
+
         </script>
       </div>
     </main>

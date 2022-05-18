@@ -35,15 +35,27 @@ include 'navbar.php';
 
                         ?>
 
+
                                         <form action="usercode.php" method="POST" enctype="multipart/form-data">
                                             <div class="row">
 
                                                 <input type="hidden" value="<?= $user['id']; ?>" name="id">
-
+                                        <script>
+                                            function previewImage(){
+                                                var file = document.getElementById("file").files;
+                                                if (file.length > 0){
+                                                    var fileReader = new FileReader();
+                                                    fileReader.onload = function(event){
+                                                        document.getElementById("preview").setAttribute("src", event.target.result);
+                                                    };
+                                                    fileReader.readAsDataURL(file[0]);
+                                                }
+                                            }
+                                        </script>
                                                 <div class="col-md-12 mb-3">
                                                 <div class="imageuser">
-                                                <input type="hidden" name="old_image" value="<?=$user['user_image']?>" class="form-control">
-                                                        <input type="file" name="user_image" class="my_file">
+                                                <input type="hidden" name="old_image" value="<?=$user['user_image']?>" class="form-control" id="preview">
+                                                        <input type="file" name="user_image" class="my_file" accept="image/*" id="file" onchange="previewImage();">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">

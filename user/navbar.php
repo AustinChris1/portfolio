@@ -18,7 +18,7 @@ include_once '../databases/db_connect.php';
         <div class="Top">
         <img src="../assets/specweblogo.png" class="logo">
 
-          <a href="index">
+          <a href="index" style="text-decoration: none;">
             <span class="spec">SPECTRA WEB-X</span> <br />
             <p class="specd">Digitalizing The World</p>
           </a>
@@ -47,6 +47,7 @@ include_once '../databases/db_connect.php';
 
                 </a>
 
+
           </nav>
         </div>
 
@@ -61,8 +62,8 @@ include_once '../databases/db_connect.php';
       <div class="mobile">
         <div class="mobnav">
 <span class="profimg">                   
-  <a href="profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 4.5rem; height: 5rem; border-radius: 50%; border-color: #fff;  ">
-                <br><?=$_SESSION['auth_user']['username'];?>&#128526;
+  <a href="profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 4.5rem; height: 5rem; border-radius: 50%; border-color: #fff;  "> <br>
+                <?=$_SESSION['auth_user']['username'];?>&#128526;
               </a>
                 </span>
           <ul>                           
@@ -73,21 +74,15 @@ include_once '../databases/db_connect.php';
             <a href="../courses/" >Courses</a>
             <a href="logout">Log Out</a>
             <a href="">Notifications<i class="fas fa-bell" id="bell"></i></a>
-            <a href="refferal_stats">Settings<i class="fas fa-cog" id="settings"></i></a>
-
-            <?php
+                        <a href="refferal_stats">Settings<i class="fas fa-cog" id="settings"></i></a>
+                      <?php
             if($_SESSION['auth_role'] !== ''):
             ?>
             <a href="../admin/">Admin Portal</a>
             <?php
             endif;
             ?>
-
-<a href=""><?= $user['user_agent']?></a>
-<a href=""><?= $user['user_ip_address']?></a>
-<a href=""><?= $user['last_activity']?></a>
-
-          </ul>
+</ul>
         </div>
       </div>
 

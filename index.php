@@ -7,7 +7,7 @@ include_once 'visitor_log.php';
 session_start();
 // include 'includes/config.php';
 include 'includes/header.php';
-if (isset($_SESSION['auth'])){
+if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
   // $_SESSION['message'] = "You are already logged in";
   header('Location:user/home');
   exit();
