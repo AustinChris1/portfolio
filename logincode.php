@@ -76,8 +76,8 @@ if($loginact){
           'referrer' => $referrer
           // 'user_image' => $user_image,
         ];
-                 setcookie('logincookie', $_SESSION['auth_user']['id'], time()+60*60*24*30);
-          setcookie('logincookie_name', $_SESSION['auth_user']['username'], time()+60*60*24*30);
+                 setcookie('logincookie', $_SESSION['auth_user']['id'], time()+60*60*24*30, "/");
+          setcookie('logincookie_name', $_SESSION['auth_user']['username'], time()+60*60*24*30, "/");
           
  $trust = $db->query("INSERT INTO devices (user_id, browser_info, last_login, last_login_location) VALUES ('" . $_SESSION['auth_user']['id'] . "', '" . $browser_info . "', NOW(), '" . $last_login_location . "')");
         if($trust){
