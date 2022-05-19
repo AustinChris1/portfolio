@@ -1,12 +1,12 @@
 {
-    "require": {
-        "phpmailer/phpmailer": "^6.6",
-        "browscap/browscap-php": "^5.1"
-    },
-    "require-dev": {
-        "overtrue/phplint": "3.0"
-    },
-    "scripts": {
-        "lint": "php vendor/bin/phplint"
-    }
+  "require": {
+    "phpmailer/phpmailer": "^6.6",
+    "browscap/browscap-php": "^5.1"
+  },
+  "require-dev": {
+    "overtrue/phplint": "3.0"
+  },
+  "scripts": {
+    "lint": "php vendor/bin/phplint"
+  }
 }

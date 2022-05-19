@@ -1,40 +1,41 @@
 <?php
-include '../includes/authentication.php';
+include "../includes/authentication.php";
 
-$page_title ="Spectra Blog";
-$meta_description ="Blog - Spectra Web-X";
+$page_title = "Spectra Blog";
+$meta_description = "Blog - Spectra Web-X";
 $meta_keyword = "Spectra Blog, Academy";
 
-include 'header.php';
-include 'navbar.php';
+include "header.php";
+include "navbar.php";
 ?>
 
 <div class="py-5 bg-light">
     <div class="container">
-        <?php include '../includes/message.php'; ?>
+        <?php include "../includes/message.php"; ?>
         <div class="row">
             <div class="col-md-12">
                 <h3>Category</h3>
                 <div class="underline"></div>
             </div>
             <?php
-            $blog_category = $db->query("SELECT * FROM categories WHERE navbar_status ='0' and status = '0' LIMIT 12");
+            $blog_category = $db->query(
+                "SELECT * FROM categories WHERE navbar_status ='0' and status = '0' LIMIT 12"
+            );
             if ($blog_category->num_rows > 0) {
-                foreach ($blog_category as $blogitems) {
-
-            ?>
+                foreach ($blog_category as $blogitems) { ?>
                     <div class="col-md-3 mb-4">
 
-                        <a class="text-decoration-none" href="category.php?title=<?= $blogitems['slug'] ?>">
+                        <a class="text-decoration-none" href="category.php?title=<?= $blogitems[
+                            "slug"
+                        ] ?>">
                             <div class="card card-body">
-                                <?= $blogitems['name'] ?>
+                                <?= $blogitems["name"] ?>
                             </div>
                         </a>
                     </div>
-<?php
-                }
+<?php }
             }
-?>        
+            ?>        
         </div>
 
     </div>
@@ -64,23 +65,24 @@ include 'navbar.php';
                 <div class="underline"></div>
 
                 <?php
-            $blog_posts = $db->query("SELECT * FROM posts WHERE status = '0' ORDER BY id DESC LIMIT 12");
-            if ($blog_posts->num_rows > 0) {
-                foreach ($blog_posts as $blogpost_items) {
-
-            ?>
+                $blog_posts = $db->query(
+                    "SELECT * FROM posts WHERE status = '0' ORDER BY id DESC LIMIT 12"
+                );
+                if ($blog_posts->num_rows > 0) {
+                    foreach ($blog_posts as $blogpost_items) { ?>
                     <div class="mb-4">
 
-                        <a class="text-decoration-none" href="post.php?title=<?= $blogpost_items['slug'] ?>">
+                        <a class="text-decoration-none" href="post.php?title=<?= $blogpost_items[
+                            "slug"
+                        ] ?>">
                             <div class="card card-body bg-dark">
-                                <?= $blogpost_items['name'] ?>
+                                <?= $blogpost_items["name"] ?>
                             </div>
                         </a>
                     </div>
-<?php
+<?php }
                 }
-            }
-?>        
+                ?>        
 
             </div>
             <div class="col-md-3">
@@ -98,9 +100,7 @@ include 'navbar.php';
     </div>
 </div>
 
-<?php
-include 'footer.php';
-?>
+<?php include "footer.php"; ?>
 <script>
     setTimeout(function() {
         $("#loading").hide();

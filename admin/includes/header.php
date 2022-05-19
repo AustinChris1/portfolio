@@ -39,14 +39,10 @@
             <!-- Navbar-->
             <!-- <div class="collapse navbar-collapse" id="navbarSupported"></div> -->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <?php
-                if(isset($_SESSION['auth_user'])):
-                ?>
+                <?php if (isset($_SESSION["auth_user"])): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" data-bs-target="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>
-                <?=$_SESSION['auth_user']['username'];
-                
-                ?>
+                <?= $_SESSION["auth_user"]["username"] ?>
                 </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="../user/profile">My Profile</a></li>
@@ -58,12 +54,12 @@
                         <li><a class="dropdown-item" href="../user/logout.php">Log Out</a></li>
                         <li><a class="dropdown-item" href="../user/home">User Portal</a></li>
                         <!-- <li><hr class="dropdown-divider" /></li> -->
-                        <?php else :?>
+                        <?php else: ?>
                             <li class="nav-item">
                             <a class="nav-link" href="login.php">Log In</a>
                             <a class="nav-link" href="login.php">Register</a>
                             </li>
-                            <?php endif;?>
+                            <?php endif; ?>
  
                     </ul>
                 </li>

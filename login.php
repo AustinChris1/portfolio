@@ -2,37 +2,29 @@
 
 
 <?php
-
-require_once 'databases/db_connect.php';
+require_once "databases/db_connect.php";
 session_start();
 // include 'includes/config.php';
-include 'includes/header.php';
-include 'databases/captcha.php';
+include "includes/header.php";
+include "databases/captcha.php";
 include "includes/timer.php";
-
 ?>
  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
- <?php
-if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
-    $_SESSION['message'] = "You are already logged in";
-  header('Location:user/home');
-  exit();
+ <?php if (isset($_SESSION["auth"]) || isset($_COOKIE["logincookie"])) {
+     $_SESSION["message"] = "You are already logged in";
+     header("Location:user/home");
+     exit();
 
-// setcookie('logincookie', $_SESSION['auth_user'], time()+30);
-}
-?>
+     // setcookie('logincookie', $_SESSION['auth_user'], time()+30);
+ } ?>
 <title>Login</title>
 
-    <?php
-      include 'includes/navbar.php';
-      ?>
+    <?php include "includes/navbar.php"; ?>
 
       <section id="login">
         <div class="log">
           <h1 class="hreglog">LOG IN</h1>
-          <?php 
-          include 'includes/message.php';
- ?>
+          <?php include "includes/message.php"; ?>
 
           <form action="logincode.php" method="post" class="reglogform">
           <i class="fas fa-user" id="logi"></i>
@@ -53,19 +45,15 @@ if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
             >Remeber Me </label
           ><br /><br />
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
-            <div class="g-recaptcha" data-sitekey="<?php echo $sitekey;?>" id="captcha"></div>
-             <?php
-  if($_SESSION['login_attempts'] > 2){
-    $_SESSION['locked'] = time();
-echo "<p> Please wait for 30 seconds</p>";
- }
-
-else{
- ?>
+            <div class="g-recaptcha" data-sitekey="<?php echo $sitekey; ?>" id="captcha"></div>
+             <?php if ($_SESSION["login_attempts"] > 2) {
+                 $_SESSION["locked"] = time();
+                 echo "<p> Please wait for 30 seconds</p>";
+             } else {
+                  ?>
     <button type="submit" id="submit" name="login">Login</button>
 <?php
-}
-?>
+             } ?>
           </form>
           <p class="reglog">
             Don't have an account? Register <a href="register.php">here</a>

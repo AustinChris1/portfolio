@@ -1,26 +1,22 @@
 <?php
 
-include '../includes/authentication.php';
-include '../includes/adminauthentication.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
+include "../includes/authentication.php";
+include "../includes/adminauthentication.php";
+include "includes/header.php";
+include "includes/sidebar.php";
+
 // if (isset($_SESSION['auth'])){
 //   $_SESSION['message'] = "You are already logged in";
 //   header('Location:../user/home.php');
 //   exit();
 // }
-
-
-
 ?>
                     <div class="container-fluid px-4">
                             
                         </ol>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -33,28 +29,27 @@ include 'includes/sidebar.php';
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <?php
-                                            $academy = $db->query("SELECT * FROM academy WHERE status ='0'");
-                                            if($academy->num_rows>0){
-                                                ?>
+                                            $academy = $db->query(
+                                                "SELECT * FROM academy WHERE status ='0'"
+                                            );
+                                            if ($academy->num_rows > 0) { ?>
                                         <label for="">Academy Course List</label>
                                         <select name="academy_id" required class="form-control">
                                             <option value="">--Select Academy Course--</option>
-                                            <?php
-                                            foreach($academy as $academy_item){
-
-                                                ?>
-                                                <option value="<?=$academy_item['id']?>"><?=$academy_item['name']?></option>
-                                                <?php
-                                            }
-                                            ?>
+                                            <?php foreach (
+                                                $academy
+                                                as $academy_item
+                                            ) { ?>
+                                                <option value="<?= $academy_item[
+                                                    "id"
+                                                ] ?>"><?= $academy_item[
+    "name"
+] ?></option>
+                                                <?php } ?>
                                         </select>
-                                                <?php
-                                            }
-                                            else{
-                                                ?>
+                                                <?php } else { ?>
                                                 <h6>No Academy Course Available</h6>
-                                                <?php
-                                            }
+                                                <?php }
                                             ?>
 
                                         </div>
@@ -91,7 +86,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

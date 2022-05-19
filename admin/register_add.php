@@ -1,18 +1,13 @@
 <?php
 
-include_once '../includes/authentication.php';
-include_once '../includes/adminauthentication.php';
-include 'middleware/superadminauth.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
-
-
-
+include_once "../includes/authentication.php";
+include_once "../includes/adminauthentication.php";
+include "middleware/superadminauth.php";
+include "includes/header.php";
+include "includes/sidebar.php";
 ?>
                     <div class="container-fluid px-4">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
                             
                         </ol>
                         <div class="row mt-4">
@@ -72,7 +67,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

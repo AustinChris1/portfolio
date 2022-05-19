@@ -1,31 +1,25 @@
 <?php
 // include 'includes/config.php';
 session_start();
-include 'includes/header.php';
-if (isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
-  $_SESSION['message'] = "You are already logged in";
-  header('Location:user/home');
-  exit();
+include "includes/header.php";
+if (isset($_SESSION["auth"]) || isset($_COOKIE["logincookie"])) {
+    $_SESSION["message"] = "You are already logged in";
+    header("Location:user/home");
+    exit();
 }
-require_once 'databases/db_connect.php';
+require_once "databases/db_connect.php";
 
-$refer = $db->real_escape_string($_GET['refer']);
-
-
+$refer = $db->real_escape_string($_GET["refer"]);
 ?>
 
     <title>Register</title>
-    <?php
-      include 'includes/navbar.php';
-      ?>
+    <?php include "includes/navbar.php"; ?>
 
 
     <section id="register">
       <div class="reg">
         <h1 class="hreglog">REGISTER</h1>
-        <?php 
-        include 'includes/message.php';
-        ?>
+        <?php include "includes/message.php"; ?>
         <form action="registercode.php" method="post" class="reglogform">
           <label for="">Full Name</label>
         <input class="reginput" type="text" name="name" placeholder="Fullname" autofocus="true" required/><br /><br />
@@ -51,7 +45,7 @@ $refer = $db->real_escape_string($_GET['refer']);
 <label for="">Confirm Password</label>
 <input class="reginput" type="password" name="confirm_password" placeholder="Confirm Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/><i class="bi bi-eye-slash" id="togglePassword"></i> <br /><br />
 <label for="">Refferer</label>
-<input class="reginput" type="text" name="refer" placeholder="Refferer" value="<?php echo $refer;?>" id="refer" readonly/>
+<input class="reginput" type="text" name="refer" placeholder="Refferer" value="<?php echo $refer; ?>" id="refer" readonly/>
           <br /><br />
           <input  type="checkbox"  id="terms"  class="terms"  name="terms"  value="terms"  required/>
           <label for="terms" class="terms"
@@ -73,9 +67,7 @@ $refer = $db->real_escape_string($_GET['refer']);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<?php
-include 'includes/footer.php';
-?>      
+<?php include "includes/footer.php"; ?>      
       <script>
           setTimeout(function () {
             $("#loading").hide();

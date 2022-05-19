@@ -1,59 +1,61 @@
 <?php
-include_once '../databases/db_connect.php';
-include_once '../includes/authentication.php';
+include_once "../databases/db_connect.php";
+include_once "../includes/authentication.php";
 
-if($_SESSION['auth_user']){
-    include 'header.php';
-    include 'navbar.php';
-    $username = $_SESSION['auth_user']['username'];
-    $referrer = $_SESSION['auth_user']['referrer'];
-    
-        if(isset($_SESSION['locked'])){
-      $diff = time() - $_SESSION['locked'];
-      if($diff > 360){
-        unset($_SESSION['locked']);
+if ($_SESSION["auth_user"]) {
 
-      }
-    }  
+    include "header.php";
+    include "navbar.php";
+    $username = $_SESSION["auth_user"]["username"];
+    $referrer = $_SESSION["auth_user"]["referrer"];
+
+    if (isset($_SESSION["locked"])) {
+        $diff = time() - $_SESSION["locked"];
+        if ($diff > 360) {
+            unset($_SESSION["locked"]);
+        }
+    }
 
     function updateMinedBalance($db, $username)
-{
-  $updateBalance = $db->query("SELECT * FROM spectradb WHERE username = '$username'");
-  // $uresult = mysqli_query($GLOBALS['con'], $updateBalance);
-  if ($updateBalance) {
-    if ($updateBalance->num_rows > 0) {
-      $result_fetch = $updateBalance->fetch_assoc();
-      $bal = $result_fetch['balance'] + 200;
-      $bal_email = $result_fetch['email'];
-      $update_bal = $db->query("UPDATE spectradb SET balance = '$bal' WHERE email='$bal_email'");
-      if (!$update_bal){
-        $_SESSION['message'] = "Something went wrong!";
+    {
+        $updateBalance = $db->query(
+            "SELECT * FROM spectradb WHERE username = '$username'"
+        );
+        // $uresult = mysqli_query($GLOBALS['con'], $updateBalance);
+        if ($updateBalance) {
+            if ($updateBalance->num_rows > 0) {
+                $result_fetch = $updateBalance->fetch_assoc();
+                $bal = $result_fetch["balance"] + 200;
+                $bal_email = $result_fetch["email"];
+                $update_bal = $db->query(
+                    "UPDATE spectradb SET balance = '$bal' WHERE email='$bal_email'"
+                );
+                if (!$update_bal) {
+                    $_SESSION["message"] = "Something went wrong!";
+                    header("Location: refferal_stats");
+                    exit();
+                }
+            } else {
+                $_SESSION["message"] = "Falied to update";
+                header("Location: refferal_stats");
+                exit();
+            }
+        } else {
+            $_SESSION["message"] = "Something went wrong!";
+            header("Location: refferal_stats");
+            exit();
+        }
+    }
+
+    if (isset($_POST["mine"])) {
+        updateMinedBalance($db, $username);
+        $_SESSION["locked"] = time();
+
+        $_SESSION["message"] = "Mined Successfully!";
         header("Location: refferal_stats");
         exit();
-      }
-    } else {
-      $_SESSION['message'] = "Falied to update";
-      header("Location: refferal_stats");
-      exit();
     }
-  }
-  else{
-    $_SESSION['message'] = "Something went wrong!";
-    header("Location: refferal_stats");
-    exit();
-
-  }
-}
-
-    if(isset($_POST['mine'])){
-        updateMinedBalance($db, $username);
-        $_SESSION['locked'] = time();
-
-        $_SESSION['message'] = "Mined Successfully!";
-        header("Location: refferal_stats"); 
-        exit();
-    }
-?>
+    ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <div class="container-fluid px-4">
@@ -86,9 +88,8 @@ if($_SESSION['auth_user']){
 </div>
 
 <?php
-    }
-    include 'footer.php';
-
+}
+include "footer.php";
 ?>
 <script>
     setTimeout(function() {

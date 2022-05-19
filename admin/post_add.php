@@ -1,26 +1,22 @@
 <?php
 
-include '../includes/authentication.php';
-include '../includes/adminauthentication.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
+include "../includes/authentication.php";
+include "../includes/adminauthentication.php";
+include "includes/header.php";
+include "includes/sidebar.php";
+
 // if (isset($_SESSION['auth'])){
 //   $_SESSION['message'] = "You are already logged in";
 //   header('Location:../user/home.php');
 //   exit();
 // }
-
-
-
 ?>
                     <div class="container-fluid px-4">
                             
                         </ol>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -33,28 +29,27 @@ include 'includes/sidebar.php';
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <?php
-                                            $category = $db->query("SELECT * FROM categories WHERE status ='0'");
-                                            if($category->num_rows>0){
-                                                ?>
+                                            $category = $db->query(
+                                                "SELECT * FROM categories WHERE status ='0'"
+                                            );
+                                            if ($category->num_rows > 0) { ?>
                                         <label for="">Category List</label>
                                         <select name="category_id" required class="form-control">
                                             <option value="">--Select Category--</option>
-                                            <?php
-                                            foreach($category as $category_item){
-
-                                                ?>
-                                                <option value="<?=$category_item['id']?>"><?=$category_item['name']?></option>
-                                                <?php
-                                            }
-                                            ?>
+                                            <?php foreach (
+                                                $category
+                                                as $category_item
+                                            ) { ?>
+                                                <option value="<?= $category_item[
+                                                    "id"
+                                                ] ?>"><?= $category_item[
+    "name"
+] ?></option>
+                                                <?php } ?>
                                         </select>
-                                                <?php
-                                            }
-                                            else{
-                                                ?>
+                                                <?php } else { ?>
                                                 <h6>No Category Available</h6>
-                                                <?php
-                                            }
+                                                <?php }
                                             ?>
 
                                         </div>
@@ -103,7 +98,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

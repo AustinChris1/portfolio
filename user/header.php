@@ -9,9 +9,21 @@
   <!-- <meta http-equiv="refresh" content="300" />   -->
 
     <link rel="icon" href="../assets/specweblogo.png" />
-  <title><?php if(isset($page_title)){echo "$page_title";} else {echo "Spectra Web-X";}?></title>
-  <meta name="description" content="<?php if(isset($meta_description)){echo "$meta_description";} else {echo "$meta_description";}?>"/>
-  <meta name="keywords" content="<?php if(isset($meta_keyword)){echo "$meta_keyword";} else {echo "$meta_keyword";}?>"/>
+  <title><?php if (isset($page_title)) {
+      echo "$page_title";
+  } else {
+      echo "Spectra Web-X";
+  } ?></title>
+  <meta name="description" content="<?php if (isset($meta_description)) {
+      echo "$meta_description";
+  } else {
+      echo "$meta_description";
+  } ?>"/>
+  <meta name="keywords" content="<?php if (isset($meta_keyword)) {
+      echo "$meta_keyword";
+  } else {
+      echo "$meta_keyword";
+  } ?>"/>
   <meta name="author" content="Spectra Web-X"/>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

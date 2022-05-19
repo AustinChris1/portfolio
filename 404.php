@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'includes/header.php';
-include 'includes/navbar.php';
+include "includes/header.php";
+include "includes/navbar.php";
 ?>
 <section class="page_404">
 	<div class="container">
@@ -28,17 +28,14 @@ include 'includes/navbar.php';
 		</div>
 	</div>
 </section>
-<?php
-                if(isset($_SESSION['auth_user'])):
-                    include 'user/footer.php';
-                ?>
+<?php if (isset($_SESSION["auth_user"])):
+    include "user/footer.php"; ?>
                 </body>
                 </html>
 <?php
-else :
-include 'includes/footer.php';
-endif;
-?>
+else:
+    include "includes/footer.php";
+endif; ?>
         <script>
           setTimeout(function () {
             $("#loading").hide();

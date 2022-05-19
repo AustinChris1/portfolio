@@ -1,5 +1,5 @@
-<?php 
-	$db = new mysqli('localhost','root','','spectrawebx') or die('error with connection');
-	
+<?php
+($db = new mysqli("localhost", "root", "", "spectrawebx")) or
+    die("error with connection");
 
- ?>
+?>

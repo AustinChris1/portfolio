@@ -1,4 +1,4 @@
 <?php
 session_start();
-include '../databases/db_connect.php';
+include "../databases/db_connect.php";
 ?>

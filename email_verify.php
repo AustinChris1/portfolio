@@ -1,7 +1,6 @@
 <?php
-include 'includes/header.php';
-include 'includes/navbar.php';
-
+include "includes/header.php";
+include "includes/navbar.php";
 ?>
 <div class="page">
         <img src="assets/email-v1.gif" alt="" class="emailimg">
@@ -10,9 +9,7 @@ include 'includes/navbar.php';
 <br>
 <p class="resend">Did not receive your verification email? <a href='resend_email_verification'>Resend</a></p>
     </div>
-    <?php
-include 'includes/footer.php';
-?>      
+    <?php include "includes/footer.php"; ?>      
       <script>
           setTimeout(function () {
             $("#loading").hide();

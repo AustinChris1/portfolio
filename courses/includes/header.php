@@ -22,16 +22,14 @@
     <!-- //Summernote CSS - CDN Link -->
 
     </head>
-    <?php
-                if(isset($_SESSION['auth_user']['id'])){
-                  $user_id = $_SESSION['auth_user']['id'];
+    <?php if (isset($_SESSION["auth_user"]["id"])) {
+        $user_id = $_SESSION["auth_user"]["id"];
 
-                  $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
-                  if ($profilequery->num_rows > 0) {
-
-                      foreach ($profilequery as $user) {
-
-                ?>
+        $profilequery = $db->query(
+            "SELECT * FROM spectradb WHERE id='$user_id'"
+        );
+        if ($profilequery->num_rows > 0) {
+            foreach ($profilequery as $user) { ?>
 
 <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -51,10 +49,10 @@
             <ul class="navbar-nav ms-auto ms-md-0 me-0 me-lg-4">
                 <li class="nav-item dropdown float-end">
                     <a class="nav-link dropdown-toggle" style="border-bottom: none;" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 2.3rem; height: 3rem; border-radius: 50%; border-color: #fff;  ">
-                <?=$_SESSION['auth_user']['username'];
-                
-                ?>
+                    <img src="../uploads/user_images/<?= $user[
+                        "user_image"
+                    ] ?>" alt="" style="width: 2.3rem; height: 3rem; border-radius: 50%; border-color: #fff;  ">
+                <?= $_SESSION["auth_user"]["username"] ?>
                 </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="../user/profile">My Profile</a></li>
@@ -70,7 +68,6 @@
             </ul>
         </nav>
 
-<?php
-}
-}
-}?>
+<?php }
+        }
+    } ?>

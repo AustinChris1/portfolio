@@ -1,16 +1,11 @@
 
 
-<?php
-                if(isset($_SESSION['auth_user']['id'])){
-                  $user_id = $_SESSION['auth_user']['id'];
+<?php if (isset($_SESSION["auth_user"]["id"])) {
+    $user_id = $_SESSION["auth_user"]["id"];
 
-                  $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
-                  if ($profilequery->num_rows > 0) {
-
-                      foreach ($profilequery as $user) {
-
-
-?>
+    $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
+    if ($profilequery->num_rows > 0) {
+        foreach ($profilequery as $user) { ?>
 </head>
 <body>
       <!-- <div id="loading">
@@ -38,17 +33,16 @@
           <a href="index" >HOME</a>
 
           <?php
-                            $navbar_category = $db->query("SELECT * FROM categories WHERE navbar_status ='0' and status = '0'");
-                            if($navbar_category->num_rows>0){
-                              foreach($navbar_category as $navitems){
-                                
-                                ?>
+          $navbar_category = $db->query(
+              "SELECT * FROM categories WHERE navbar_status ='0' and status = '0'"
+          );
+          if ($navbar_category->num_rows > 0) {
+              foreach ($navbar_category as $navitems) { ?>
 
-            <a href="category?title=<?=$navitems['slug']?>" ><?=$navitems['name']?></a>
-                <?php             
-          }
-                            
-                              ?>
+            <a href="category?title=<?= $navitems["slug"] ?>" ><?= $navitems[
+    "name"
+] ?></a>
+                <?php } ?>
           </nav>
         </div>
 
@@ -63,37 +57,35 @@
       <div class="mobile">
         <div class="mobnav">
         <span class="profimg">                   
-  <a href="../user/profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 3rem; height: 3.5rem; border-radius: 50%; border-color: #fff;  ">
-                <?=$_SESSION['auth_user']['username'];?>
+  <a href="../user/profile"> <img src="../uploads/user_images/<?= $user[
+      "user_image"
+  ] ?>" alt="" style="width: 3rem; height: 3.5rem; border-radius: 50%; border-color: #fff;  ">
+                <?= $_SESSION["auth_user"]["username"] ?>
               </a>
                 </span>
           <ul>
           <a href="index">HOME</a>
-        <?php
-                foreach ($navbar_category as $navitems) {
-        ?>
-          <a href="category?title=<?= $navitems['slug'] ?>"><?= $navitems['name'] ?></a>
-        <?php
-                }
-                            }
-        ?>
-            <?php
-                if(isset($_SESSION['auth_user'])):
-                ?>
+        <?php foreach ($navbar_category as $navitems) { ?>
+          <a href="category?title=<?= $navitems["slug"] ?>"><?= $navitems[
+    "name"
+] ?></a>
+        <?php }
+          }
+          ?>
+            <?php if (isset($_SESSION["auth_user"])): ?>
 
             <a href="../user/logout">LOG OUT</a>
 
-            <?php else :?>
+            <?php else: ?>
 
             <a href="../login" >LOG IN</a>
             <a href="../register" >CREATE NEW ACCOUNT</a>
-            <?php endif;?>
+            <?php endif; ?>
 
           </ul>
         </div>
       </div>
-<?php
-                      }
-                    }
-                  }
+<?php }
+    }
+}
 ?>

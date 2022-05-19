@@ -1,11 +1,16 @@
 <div id="layoutSidenav">
-    <?php $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1); ?>
+    <?php $page = substr(
+        $_SERVER["SCRIPT_NAME"],
+        strrpos($_SERVER["SCRIPT_NAME"], "/") + 1
+    ); ?>
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link <?= $page == 'index.php' ? 'active' : '' ?>" href="index">
+                    <a class="nav-link <?= $page == "index.php"
+                        ? "active"
+                        : "" ?>" href="index">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Home
                     </a>
@@ -18,36 +23,49 @@
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <?php
-                            $course_category = $db->query("SELECT * FROM academy WHERE status = '0'");
+                            $course_category = $db->query(
+                                "SELECT * FROM academy WHERE status = '0'"
+                            );
                             if ($course_category->num_rows > 0) {
-                                foreach ($course_category as $courseitems) {
-
-                            ?>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse<?= $courseitems['name'] ?>" aria-expanded="false" aria-controls="collapse<?= $courseitems['name'] ?>">
+                                foreach ($course_category as $courseitems) { ?>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse<?= $courseitems[
+                                        "name"
+                                    ] ?>" aria-expanded="false" aria-controls="collapse<?= $courseitems[
+    "name"
+] ?>">
                                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                        <?= $courseitems['name'] ?>
+                                        <?= $courseitems["name"] ?>
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
-                                    <div class="collapse" id="collapse<?= $courseitems['name'] ?>" aria-labelledby="<?= $courseitems['name'] ?>" data-bs-parent="#sidenavAccordion">
+                                    <div class="collapse" id="collapse<?= $courseitems[
+                                        "name"
+                                    ] ?>" aria-labelledby="<?= $courseitems[
+    "name"
+] ?>" data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             
                                             <?php
-                                            $scourse = $db->query("SELECT * FROM courses WHERE status = '0'");
+                                            $scourse = $db->query(
+                                                "SELECT * FROM courses WHERE status = '0'"
+                                            );
                                             if ($scourse->num_rows > 0) {
-                                                foreach ($scourse as $scourseitems) {
-
-                                            ?>
+                                                foreach (
+                                                    $scourse
+                                                    as $scourseitems
+                                                ) { ?>
                                             
-                                                    <a class="nav-link" href="course?title=<?= $scourseitems['slug'] ?>"><?= $scourseitems['name'] ?></a>
-                                            <?php
-                                                }
+                                                    <a class="nav-link" href="course?title=<?= $scourseitems[
+                                                        "slug"
+                                                    ] ?>"><?= $scourseitems[
+    "name"
+] ?></a>
+                                            <?php }
                                             }
                                             ?>
 
                                         </nav>
                                     </div>
-                            <?php
-                                }
+                            <?php }
                             }
                             ?>
 
@@ -61,14 +79,15 @@
                     <div class="collapse" id="collapsePosts" aria-labelledby="Posts" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <?php
-                            $scourse = $db->query("SELECT * FROM courses WHERE status = '0'");
+                            $scourse = $db->query(
+                                "SELECT * FROM courses WHERE status = '0'"
+                            );
                             if ($scourse->num_rows > 0) {
-                                foreach ($scourse as $scourseitems) {
-
-                            ?>
-                                    <a class="nav-link" href="course?title=<?= $scourseitems['slug'] ?>"><?= $scourseitems['name'] ?></a>
-                            <?php
-                                }
+                                foreach ($scourse as $scourseitems) { ?>
+                                    <a class="nav-link" href="course?title=<?= $scourseitems[
+                                        "slug"
+                                    ] ?>"><?= $scourseitems["name"] ?></a>
+                            <?php }
                             }
                             ?>
 
@@ -92,13 +111,10 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <?php
-                if (isset($_SESSION['auth_user']));
-                ?>
+                <?php if (isset($_SESSION["auth_user"])); ?>
 
                 <div class="small">Logged in as:
-                    <?= $_SESSION['auth_user']['username'];
-                    ?> <br>
+                    <?= $_SESSION["auth_user"]["username"] ?> <br>
                     Spectra Blog
                 </div>
         </nav>

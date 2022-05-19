@@ -1,41 +1,42 @@
 <?php
-include '../includes/authentication.php';
+include "../includes/authentication.php";
 
-$page_title ="Spectra Academy";
-$meta_description ="Academy - Spectra Web-X";
+$page_title = "Spectra Academy";
+$meta_description = "Academy - Spectra Web-X";
 $meta_keyword = "Spectra Academy, Academy";
 
-include 'includes/header.php';
+include "includes/header.php";
 // include 'includes/navbar.php';
-include 'includes/sidebar.php';
+include "includes/sidebar.php";
 ?>
 
 <div class="py-5 bg-light">
     <div class="container">
-        <?php include '../includes/message.php'; ?>
+        <?php include "../includes/message.php"; ?>
         <div class="row">
             <div class="col-md-12">
                 <h3>Academy Courses</h3>
                 <div class="underline"></div>
             </div>
             <?php
-            $course_category = $db->query("SELECT * FROM academy WHERE status = '0'");
+            $course_category = $db->query(
+                "SELECT * FROM academy WHERE status = '0'"
+            );
             if ($course_category->num_rows > 0) {
-                foreach ($course_category as $courseitems) {
-
-            ?>
+                foreach ($course_category as $courseitems) { ?>
                     <div class="col-md-3 mb-4">
 
-                        <a class="text-decoration-none" href="academy_course?title=<?= $courseitems['slug'] ?>">
+                        <a class="text-decoration-none" href="academy_course?title=<?= $courseitems[
+                            "slug"
+                        ] ?>">
                             <div class="card card-body">
-                                <?= $courseitems['name'] ?>
+                                <?= $courseitems["name"] ?>
                             </div>
                         </a>
                     </div>
-<?php
-                }
+<?php }
             }
-?>        
+            ?>        
         </div>
 
     </div>
@@ -65,23 +66,24 @@ include 'includes/sidebar.php';
                 <div class="underline"></div>
 
                 <?php
-            $courses = $db->query("SELECT * FROM courses WHERE status = '0'");
-            if ($courses->num_rows > 0) {
-                foreach ($courses as $courses_items) {
-
-            ?>
+                $courses = $db->query(
+                    "SELECT * FROM courses WHERE status = '0'"
+                );
+                if ($courses->num_rows > 0) {
+                    foreach ($courses as $courses_items) { ?>
                     <div class="mb-4">
 
-                        <a class="text-decoration-none" href="course?title=<?= $courses_items['slug'] ?>">
+                        <a class="text-decoration-none" href="course?title=<?= $courses_items[
+                            "slug"
+                        ] ?>">
                             <div class="card card-body bg-dark">
-                                <?= $courses_items['name'] ?>
+                                <?= $courses_items["name"] ?>
                             </div>
                         </a>
                     </div>
-<?php
+<?php }
                 }
-            }
-?>        
+                ?>        
 
             </div>
             <div class="col-md-3">
@@ -99,9 +101,7 @@ include 'includes/sidebar.php';
     </div>
 </div>
 
-<?php
-include 'includes/footer.php';
-?>
+<?php include "includes/footer.php"; ?>
 <script>
     setTimeout(function() {
         $("#loading").hide();

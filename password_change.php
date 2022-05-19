@@ -1,111 +1,110 @@
 <?php
 session_start();
-include 'databases/db_connect.php';
+include "databases/db_connect.php";
 
-
-if(isset($_POST['change_password'])){
+if (isset($_POST["change_password"])) {
     $email = $db->real_escape_string($email);
-    $email = $_POST['email'];
+    $email = $_POST["email"];
 
     $new_password = $db->real_escape_string($new_password);
-    $new_password = $_POST['new_password'];
+    $new_password = $_POST["new_password"];
     $new_password = md5($new_password);
 
     $confirm_password = $db->real_escape_string($confirm_password);
-    $confirm_password = $_POST['confirm_password'];
+    $confirm_password = $_POST["confirm_password"];
     $confirm_password = md5($confirm_password);
 
-
     $token = $db->real_escape_string($token);
-    $token = $_POST['password_token'];
+    $token = $_POST["password_token"];
 
-    if(!empty($token))
-    {
-        if(!empty($email) && !empty($new_password) && !empty($confirm_password))
-        {
+    if (!empty($token)) {
+        if (
+            !empty($email) &&
+            !empty($new_password) &&
+            !empty($confirm_password)
+        ) {
             //check if token is valid or not
-            $check_token = $db->query("SELECT verify_token FROM spectradb WHERE verify_token='$token' LIMIT 1");
-            
-            if($check_token->num_rows>0)
-            {
-                if($new_password == $confirm_password)
-                {
-                    $update_password = $db->query("UPDATE spectradb SET password = '$new_password' WHERE verify_token = '$token' LIMIT 1");
-                    
+            $check_token = $db->query(
+                "SELECT verify_token FROM spectradb WHERE verify_token='$token' LIMIT 1"
+            );
 
-                    if($update_password)
-                    {
-                        $new_token = md5(rand())."spectrawebx";
-                        $update_to_new_token = $db->query("UPDATE spectradb SET verify_token = '$new_token' WHERE verify_token = '$token' LIMIT 1");
+            if ($check_token->num_rows > 0) {
+                if ($new_password == $confirm_password) {
+                    $update_password = $db->query(
+                        "UPDATE spectradb SET password = '$new_password' WHERE verify_token = '$token' LIMIT 1"
+                    );
 
-                        $_SESSION['message'] = "New password updated successfully";
+                    if ($update_password) {
+                        $new_token = md5(rand()) . "spectrawebx";
+                        $update_to_new_token = $db->query(
+                            "UPDATE spectradb SET verify_token = '$new_token' WHERE verify_token = '$token' LIMIT 1"
+                        );
+
+                        $_SESSION["message"] =
+                            "New password updated successfully";
                         header("location: login");
                         exit();
-    
-                    }
-                    else{
-                        $_SESSION['message'] = "Something went wrong! Password did not update";
-                        header("location: password_change?token=$token&email=$email");
+                    } else {
+                        $_SESSION["message"] =
+                            "Something went wrong! Password did not update";
+                        header(
+                            "location: password_change?token=$token&email=$email"
+                        );
                         exit();
-    
                     }
-                }
-                else
-                {
-                    $_SESSION['message'] = "Password does not match";
-                    header("location: password_change?token=$token&email=$email");
+                } else {
+                    $_SESSION["message"] = "Password does not match";
+                    header(
+                        "location: password_change?token=$token&email=$email"
+                    );
                     exit();
-    
                 }
-            }
-            else
-            {
-                $_SESSION['message'] = "Invalid token";
+            } else {
+                $_SESSION["message"] = "Invalid token";
                 header("location: password_change?token=$token&email=$email");
                 exit();
-            
             }
-        }
-        else
-        {
-            $_SESSION['message'] = "All fields are required";
+        } else {
+            $_SESSION["message"] = "All fields are required";
             header("location: password_change?token=$token&email=$email");
             exit();
-    
         }
-    }
-    else
-    {
-        $_SESSION['message'] = "No token available";
+    } else {
+        $_SESSION["message"] = "No token available";
         header("location: password_reset");
         exit();
-
     }
 }
 ?>
 
 
 <?php
-include 'includes/header.php';
-include 'includes/navbar.php';
+include "includes/header.php";
+include "includes/navbar.php";
 ?>
 <div class="py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <?php
-                    include 'includes/message.php';
-                    ?>
+                    <?php include "includes/message.php"; ?>
                     <div class="card-header">
                         <h5>Change Password</h5>
                     </div>
                     <div class="card-body p-4">
                         <form action="password_change.php" method="post">
-                            <input type="hidden" name="password_token" value="<?php if(isset($_GET['token'])){ echo $_GET['token'];}?>">
+                            <input type="hidden" name="password_token" value="<?php if (
+                                isset($_GET["token"])
+                            ) {
+                                echo $_GET["token"];
+                            } ?>">
                         <div class="form-group mb-3">
                                 <label for="">Email Address</label>
-                                <input type="text" readonly value="<?php if(isset($_GET['email'])){ echo $_GET['email'];}?>" name="email" class="form-control" required placeholder="Enter Email Address">
+                                <input type="text" readonly value="<?php if (
+                                    isset($_GET["email"])
+                                ) {
+                                    echo $_GET["email"];
+                                } ?>" name="email" class="form-control" required placeholder="Enter Email Address">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="">New Password</label>
@@ -125,9 +124,7 @@ include 'includes/navbar.php';
         </div>
     </div>
 </div>
-<?php
-include 'includes/footer.php';
-?>
+<?php include "includes/footer.php"; ?>
       <script>
           setTimeout(function () {
             $("#loading").hide();
