@@ -6,6 +6,8 @@ include_once "includes/timer.php";
 ?>
 
 <?php
+mysqli_report(MYSQLI_REPORT_ALL);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["login"])) {
         $username = $_POST["username"];
@@ -30,20 +32,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // if($json -> success == "true"){
         //get server related info
         $loginact = $db->prepare(
-            "UPDATE spectradb SET user_ip_address='$user_ip_address', user_agent='$user_agent', last_activity= NOW() WHERE username='$username'"
+            "UPDATE spectradb SET user_ip_address=?, user_agent=?, last_activity= NOW() WHERE username=?"
         );
 
-        $loginact->bind_param("ssss", $user_ip_address, $user_agent);
+        $loginact->bind_param("sss", $user_ip_address, $user_agent, $username);
 
         $insert = $loginact->execute();
 
         $browser = get_browser(null, true);
-        $browser_info =
-            $browser["browser"] .
-            " " .
-            $browser["device_type"] .
-            " " .
-            $browser["platform"];
+        $device_type = in_array('device_type', $browser) ? $browser['device_type'] : '';
+        $browser_info = $browser['browser'] . " " . $device_type . " " . $browser['platform'];
 
         $user_ip = getenv("REMOTE_ADDR");
         $user_ip = "197.210.227.38";
@@ -81,18 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         "referrer" => $referrer,
                         // 'user_image' => $user_image,
                     ];
-                    setcookie(
-                        "logincookie",
-                        $_SESSION["auth_user"]["id"],
-                        time() + 60 * 60 * 24 * 30,
-                        "/"
-                    );
-                    setcookie(
-                        "logincookie_name",
-                        $_SESSION["auth_user"]["username"],
-                        time() + 60 * 60 * 24 * 30,
-                        "/"
-                    );
 
                     $trust = $db->query(
                         "INSERT INTO devices (user_id, browser_info, last_login, last_login_location) VALUES ('" .
@@ -104,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             "')"
                     );
                     if ($trust) {
-                        if (isset($_COOKIE["logincookie"])) {
                             if ($_SESSION["auth_role"] == "admin") {
                                 $_SESSION["message"] =
                                     "Hello Admin, Welcome To Dashboard";
@@ -120,7 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 header("Location: admin/");
                                 exit(0);
                             }
-                        }
                     } else {
                         $_SESSION["message"] = "Trust Failed";
                         header("Location: login");
@@ -137,12 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["login_attempts"] += 1;
                 $_SESSION["message"] = "Incorrect Username or Password";
                 header("Location: login");
-                exit(0);
             }
         } else {
             $_SESSION["message"] = "Failed";
             header("Location: login");
-            exit(0);
         }
         // }
         // else{
@@ -154,11 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$browser = get_browser(null, true);
+// $browser = get_browser(null, true);
 //     $browser_info = $browser["browser"] . " " . $browser["device_type"] . " " . $browser["platform"];
 // echo $browser_info;
 
-print_r($browser);
+// print_r($browser);
 ?>
-
- ?>

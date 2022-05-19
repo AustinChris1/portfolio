@@ -2,7 +2,7 @@
 // include 'includes/config.php';
 session_start();
 include "includes/header.php";
-if (isset($_SESSION["auth"]) || isset($_COOKIE["logincookie"])) {
+if (isset($_SESSION["auth"])) {
     $_SESSION["message"] = "You are already logged in";
     header("Location:user/home");
     exit();
@@ -23,11 +23,11 @@ $refer = $db->real_escape_string($_GET["refer"]);
         <form action="registercode.php" method="post" class="reglogform">
           <label for="">Full Name</label>
         <input class="reginput" type="text" name="name" placeholder="Fullname" autofocus="true" required/><br /><br />
-        
+
         <label for="">Username</label>
         <input class="reginput" type="text" pattern="[A-Za-z0-9_]{5,15}" maxlength="15" title="Must not contain any symbol, not less than 5 and not more than 15 characters"
  name="username" placeholder="Username" autofocus="true" required/><br /><br />
-        
+
         <label for="">Email</label>
 <input class="reginput" type="email" name="email" placeholder="Email" autofocus="true" required/><br /><br />
 <label for="">Phone Number</label>
@@ -67,7 +67,7 @@ $refer = $db->real_escape_string($_GET["refer"]);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<?php include "includes/footer.php"; ?>      
+<?php include "includes/footer.php"; ?>
       <script>
           setTimeout(function () {
             $("#loading").hide();
@@ -105,97 +105,97 @@ $refer = $db->real_escape_string($_GET["refer"]);
     50% {transform: translateX(-4px);}
     75% {transform: translateX(4px);}
   }
-  *,  
- *::before,  
- *::after {  
-  box-sizing: border-box;  
-  transition: all 0.1s;  
-  margin: 0;  
- }  
-  .password-meter {  
-  width: 100%;  
- }  
- .password-meter__bar {  
-  width: 33.333%;  
-  height: 1rem;  
-  background: #eee;  
-  margin-bottom: 1rem;  
-  position: relative;  
- }  
- .password-meter__bar__inner {  
-  width: 0;  
-  height: 100%;  
-  display: block;  
-  position: absolute;  
-  top: 0;  
-  left: 0;  
- }  
- .password-meter__label {  
-  color: #666;  
-  font-size: 1.2rem;  
- }  
- .password-meter__label span {  
-  font-weight: bold;  
- } 
+  *,
+ *::before,
+ *::after {
+  box-sizing: border-box;
+  transition: all 0.1s;
+  margin: 0;
+ }
+  .password-meter {
+  width: 100%;
+ }
+ .password-meter__bar {
+  width: 33.333%;
+  height: 1rem;
+  background: #eee;
+  margin-bottom: 1rem;
+  position: relative;
+ }
+ .password-meter__bar__inner {
+  width: 0;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+ }
+ .password-meter__label {
+  color: #666;
+  font-size: 1.2rem;
+ }
+ .password-meter__label span {
+  font-weight: bold;
+ }
 </style>
 
 <script>
-  ( () => {  
-  /**  
-   * Parse a password string into a numeric value.  
-   *  
-   * @param {string} password  
-   * @return {number}  
-   */  
-  let evaluatePassword = ( password ) => {  
-   let score = 0;  
-   score = password.length;  
-   score = ( password.match( /[!]/gmi ) ) ? score + ( password.match( /[!]/gmi ).length * 3 ) : score;  
-   score = ( password.match( /[A-Z]/gm ) ) ? score + 3 : score;  
-   score = ( password.match( /[0-9]/gmi ) ) ? score + 3 : score;  
-   return score;  
-  };  
-  /**  
-   * Convert a numeric score into an object of 'DOM update' data.  
-   *  
-   * @param {number} score  
-   * @return {Object}  
-   */  
-  let scoreToData = ( score ) => {    
-   if ( score >= 30 ) {  
-    return {  
-     width: '100%',  
-     color: '#26de81',  
-     label: 'Strong',  
-    };  
-   } else if ( score >= 20 ) {  
-    return {  
-     width: '66%',  
-     color: '#fd9644',  
-     label: 'Medium',  
-    };  
-   } else {  
-    return {  
-     width: '33%',  
-     color: '#fc5c65',  
-     label: 'Weak',  
-    };  
-   }  
-  };  
-  window.addEventListener( 'DOMContentLoaded', () => {  
-   // Get element refs.  
-   let p = document.querySelector( '.js--password' );  
-   let b = document.querySelector( '.js--password-bar' );  
-   let t = document.querySelector( '.js--password-text' );  
-   // Listen for updates to password field.  
-   p.addEventListener( 'input', () => {  
-    // Convert current value to data.  
-    let data = scoreToData( evaluatePassword( p.value ) );  
-    // Update DOM.  
-    b.style.width = data.width;  
-    b.style.background = data.color;  
-    t.innerText = data.label;  
-   } );  
-  } );  
- } )();  
+  ( () => {
+  /**
+   * Parse a password string into a numeric value.
+   *
+   * @param {string} password
+   * @return {number}
+   */
+  let evaluatePassword = ( password ) => {
+   let score = 0;
+   score = password.length;
+   score = ( password.match( /[!]/gmi ) ) ? score + ( password.match( /[!]/gmi ).length * 3 ) : score;
+   score = ( password.match( /[A-Z]/gm ) ) ? score + 3 : score;
+   score = ( password.match( /[0-9]/gmi ) ) ? score + 3 : score;
+   return score;
+  };
+  /**
+   * Convert a numeric score into an object of 'DOM update' data.
+   *
+   * @param {number} score
+   * @return {Object}
+   */
+  let scoreToData = ( score ) => {
+   if ( score >= 30 ) {
+    return {
+     width: '100%',
+     color: '#26de81',
+     label: 'Strong',
+    };
+   } else if ( score >= 20 ) {
+    return {
+     width: '66%',
+     color: '#fd9644',
+     label: 'Medium',
+    };
+   } else {
+    return {
+     width: '33%',
+     color: '#fc5c65',
+     label: 'Weak',
+    };
+   }
+  };
+  window.addEventListener( 'DOMContentLoaded', () => {
+   // Get element refs.
+   let p = document.querySelector( '.js--password' );
+   let b = document.querySelector( '.js--password-bar' );
+   let t = document.querySelector( '.js--password-text' );
+   // Listen for updates to password field.
+   p.addEventListener( 'input', () => {
+    // Convert current value to data.
+    let data = scoreToData( evaluatePassword( p.value ) );
+    // Update DOM.
+    b.style.width = data.width;
+    b.style.background = data.color;
+    t.innerText = data.label;
+   } );
+  } );
+ } )();
 </script>

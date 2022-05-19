@@ -10,7 +10,7 @@ include "databases/captcha.php";
 include "includes/timer.php";
 ?>
  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
- <?php if (isset($_SESSION["auth"]) || isset($_COOKIE["logincookie"])) {
+ <?php if (isset($_SESSION["auth"])) {
      $_SESSION["message"] = "You are already logged in";
      header("Location:user/home");
      exit();
@@ -46,7 +46,7 @@ include "includes/timer.php";
           ><br /><br />
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
             <div class="g-recaptcha" data-sitekey="<?php echo $sitekey; ?>" id="captcha"></div>
-             <?php if ($_SESSION["login_attempts"] > 2) {
+             <?php if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] > 2) {
                  $_SESSION["locked"] = time();
                  echo "<p> Please wait for 30 seconds</p>";
              } else {
@@ -75,7 +75,7 @@ togglePassword.addEventListener("click", function () {
     // toggle the type attribute
     const type = password.getAttribute("type") === "password" ? "text" : "password";
     password.setAttribute("type", type);
-    
+
     // toggle the icon
     this.classList.toggle("bi-eye");
 });
@@ -92,7 +92,7 @@ togglePassword.addEventListener("click", function () {
 
           function onFormSubmit() {
     event.preventDefault();
- 
+
     console.log("Mined");
 }
 
