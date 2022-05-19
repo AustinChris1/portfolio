@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '15aec9d3628f897af7bd6be2fc34b72a32cbf0a8',
+        'reference' => '8ed73a3fa21e0e96371a5f92684deb9e8b37a003',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '15aec9d3628f897af7bd6be2fc34b72a32cbf0a8',
+            'reference' => '8ed73a3fa21e0e96371a5f92684deb9e8b37a003',
             'dev_requirement' => false,
         ),
         'browscap/browscap-php' => array(
@@ -81,6 +81,24 @@
             'aliases' => array(),
             'reference' => '247918972acd74356b0a91dfaa5adcaec069b6c0',
             'dev_requirement' => false,
+        ),
+        'n98/junit-xml' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../n98/junit-xml',
+            'aliases' => array(),
+            'reference' => '0017dd92ac8cb619f02e32f4cffd768cfe327c73',
+            'dev_requirement' => true,
+        ),
+        'overtrue/phplint' => array(
+            'pretty_version' => '3.0.0',
+            'version' => '3.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../overtrue/phplint',
+            'aliases' => array(),
+            'reference' => '2d68ee8ab9083041a297cb6897ccec6290814c88',
+            'dev_requirement' => true,
         ),
         'phpmailer/phpmailer' => array(
             'pretty_version' => 'v6.6.0',
@@ -157,8 +175,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -221,6 +239,15 @@
             'reference' => '3a4442138d80c9f7b600fb297534ac718b61d37f',
             'dev_requirement' => false,
         ),
+        'symfony/finder' => array(
+            'pretty_version' => 'v5.4.8',
+            'version' => '5.4.8.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/finder',
+            'aliases' => array(),
+            'reference' => '9b630f3427f3ebe7cd346c277a1408b00249dad9',
+            'dev_requirement' => true,
+        ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.25.0',
             'version' => '1.25.0.0',
@@ -275,6 +302,15 @@
             'reference' => '4407588e0d3f1f52efb65fbe92babe41f37fe50c',
             'dev_requirement' => false,
         ),
+        'symfony/process' => array(
+            'pretty_version' => 'v5.4.8',
+            'version' => '5.4.8.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/process',
+            'aliases' => array(),
+            'reference' => '597f3fff8e3e91836bb0bd38f5718b56ddbde2f3',
+            'dev_requirement' => true,
+        ),
         'symfony/service-contracts' => array(
             'pretty_version' => 'v2.5.1',
             'version' => '2.5.1.0',
@@ -292,6 +328,15 @@
             'aliases' => array(),
             'reference' => '3c061a76bff6d6ea427d85e12ad1bb8ed8cd43e8',
             'dev_requirement' => false,
+        ),
+        'symfony/yaml' => array(
+            'pretty_version' => 'v5.4.3',
+            'version' => '5.4.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/yaml',
+            'aliases' => array(),
+            'reference' => 'e80f87d2c9495966768310fc531b487ce64237a2',
+            'dev_requirement' => true,
         ),
     ),
 );
