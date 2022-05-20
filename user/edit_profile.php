@@ -1,19 +1,14 @@
 <?php
 
-include_once '../includes/authentication.php';
-include 'header.php';
-include 'navbar.php';
-
-
-
+include_once "../includes/authentication.php";
+include "header.php";
+include "navbar.php";
 ?>
 <div class="container-fluid px-4">
     </ol>
     <div class="row mt-4">
         <div class="col-md-12">
-    <?php
-    include '../includes/message.php';
-    ?>
+    <?php include "../includes/message.php"; ?>
 
             <div class="card">
                 <div class="card-header">
@@ -21,25 +16,25 @@ include 'navbar.php';
                     </h4>
                 </div>
                 <div class="card-body">
-                    <?php
-                        if (isset($_SESSION['auth_user']['id'])) {
-                            $user_id = $_SESSION['auth_user']['id'];
+                    <?php if (isset($_SESSION["auth_user"]["id"])) {
+                        $user_id = $_SESSION["auth_user"]["id"];
 
-                            $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
-                            if ($profilequery->num_rows > 0) {
+                        $profilequery = $db->query(
+                            "SELECT * FROM spectradb WHERE id='$user_id'"
+                        );
+                        if ($profilequery->num_rows > 0) {
+                            foreach ($profilequery as $user) {
+                                $image = $user["user_image"];
 
-                                foreach ($profilequery as $user) {
-                                    $image = $user['user_image'];
-
-                                    if ($image != NULL) {
-
-                        ?>
+                                if ($image != null) { ?>
 
 
                                         <form action="usercode.php" method="POST" enctype="multipart/form-data">
                                             <div class="row">
 
-                                                <input type="hidden" value="<?= $user['id']; ?>" name="id">
+                                                <input type="hidden" value="<?= $user[
+                                                    "id"
+                                                ] ?>" name="id">
                                         <script>
                                             function previewImage(){
                                                 var file = document.getElementById("file").files;
@@ -54,29 +49,44 @@ include 'navbar.php';
                                         </script>
                                                 <div class="col-md-12 mb-3">
                                                 <div class="imageuser">
-                                                <input type="hidden" name="old_image" value="<?=$user['user_image']?>" class="form-control" id="preview">
+                                                <input type="hidden" name="old_image" value="<?= $user[
+                                                    "user_image"
+                                                ] ?>" class="form-control" id="preview">
                                                         <input type="file" name="user_image" class="my_file" accept="image/*" id="file" onchange="previewImage();">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Name</label>
-                                                    <input type="text" name="name"  value="<?= $user['name']; ?>" class="form-control">
+                                                    <input type="text" name="name"  value="<?= $user[
+                                                        "name"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Username</label>
-                                                    <input type="text" name="username" value="<?= $user['username']; ?>" class="form-control">
+                                                    <input type="text" name="username" value="<?= $user[
+                                                        "username"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Email</label>
-                                                    <input type="text" name="email" readonly value="<?= $user['email']; ?>" class="form-control">
+                                                    <input type="text" name="email" readonly value="<?= $user[
+                                                        "email"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Phone</label>
-                                                    <input type="text" name="phone" value="<?= $user['phone']; ?>" class="form-control">
+                                                    <input type="text" name="phone" value="<?= $user[
+                                                        "phone"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Registration Date</label>
-                                                    <input type="text" readonly value="<?= date('d-M-Y', strtotime($user['created']));?>"" class="form-control">
+                                                    <input type="text" readonly value="<?= date(
+                                                        "d-M-Y",
+                                                        strtotime(
+                                                            $user["created"]
+                                                        )
+                                                    ) ?>"" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <button type="submit" class="btn btn-primary" name="update_user_profile">Update
@@ -87,39 +97,54 @@ include 'navbar.php';
                                         </form>
 
 
-                                    <?php
-                                    } else {
-                                    ?>
+                                    <?php } else { ?>
                                         <form action="usercode.php" method="POST" enctype="multipart/form-data">
                                             <div class="row">
 
-                                                <input type="hidden" value="<?= $user['id']; ?>" name="id">
+                                                <input type="hidden" value="<?= $user[
+                                                    "id"
+                                                ] ?>" name="id">
                                                 <div class="col-md-12 mb-3">
 
                                                     <div class="imageu">
-                                                    <input type="hidden" name="old_image" value="<?=$user['user_image']?>" class="form-control">
+                                                    <input type="hidden" name="old_image" value="<?= $user[
+                                                        "user_image"
+                                                    ] ?>" class="form-control">
                                                         <input type="file" name="user_image" class="my_file">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label>Name</label>
-                                                    <input type="text" name="name"  value="<?= $user['name']; ?>" class="form-control">
+                                                    <input type="text" name="name"  value="<?= $user[
+                                                        "name"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label>Username</label>
-                                                    <input type="text" name="username" value="<?= $user['username']; ?>" class="form-control">
+                                                    <input type="text" name="username" value="<?= $user[
+                                                        "username"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label>Email</label>
-                                                    <input type="text" name="email" readonly value="<?= $user['email']; ?>" class="form-control">
+                                                    <input type="text" name="email" readonly value="<?= $user[
+                                                        "email"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label>Phone</label>
-                                                    <input type="text" name="phone" value="<?= $user['phone']; ?>" class="form-control">
+                                                    <input type="text" name="phone" value="<?= $user[
+                                                        "phone"
+                                                    ] ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="">Registration Date</label>
-                                                    <input type="text" readonly value="<?= date('d-M-Y', strtotime($user['created']));?>" class="form-control">
+                                                    <input type="text" readonly value="<?= date(
+                                                        "d-M-Y",
+                                                        strtotime(
+                                                            $user["created"]
+                                                        )
+                                                    ) ?>" class="form-control">
                                                 </div>
 
                                                 <div class="col-md-6 mb-3">
@@ -128,31 +153,25 @@ include 'navbar.php';
                                                 </div>
                                             </div>
                                         </form>
-                                <?php
-                                    }
-                                }
-                            } else {
-                                ?>
-                                <h4>User Record Not Found</h4>
-                    <?php
+                                <?php }
                             }
                         } else {
-                            ?>
+                             ?>
+                                <h4>User Record Not Found</h4>
+                    <?php
+                        }
+                    } else {
+                         ?>
                             <h4>User Record Not Found</h4>
                         <?php
-                        }
-    
-                        ?>
+                    } ?>
     
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php
-include 'footer.php';
-
-?>
+<?php include "footer.php"; ?>
 <script>
     setTimeout(function() {
         $("#loading").hide();
@@ -195,7 +214,7 @@ include 'footer.php';
     }
     .imageuser{
     border-radius: 50%;
-    background: url("../uploads/user_images/<?= $user['user_image'] ?>");
+    background: url("../uploads/user_images/<?= $user["user_image"] ?>");
     position: relative;
     background-position: center;
     background-repeat: no-repeat;

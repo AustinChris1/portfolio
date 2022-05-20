@@ -1,26 +1,22 @@
 <?php
 
-include '../includes/authentication.php';
-include '../includes/adminauthentication.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
+include "../includes/authentication.php";
+include "../includes/adminauthentication.php";
+include "includes/header.php";
+include "includes/sidebar.php";
+
 // if (isset($_SESSION['auth'])){
 //   $_SESSION['message'] = "You are already logged in";
 //   header('Location:../user/home.php');
 //   exit();
 // }
-
-
-
 ?>
                     <div class="container-fluid px-4">
                             
                         </ol>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -29,78 +25,98 @@ include 'includes/sidebar.php';
                                     </h4>
                                 </div>
                                 <div class="card-body">
-                                    <?php
-                                    if(isset($_GET['id'])){
-                                        $post_id = $_GET['id'];
-                                        $postquery = $db->query("SELECT * FROM posts WHERE id= '$post_id' LIMIT 1");
-                                        if($postquery->num_rows>0){
-                                            $postrow= $postquery->fetch_array();
-                                            ?>
+                                    <?php if (isset($_GET["id"])) {
+                                        $post_id = $_GET["id"];
+                                        $postquery = $db->query(
+                                            "SELECT * FROM posts WHERE id= '$post_id' LIMIT 1"
+                                        );
+                                        if ($postquery->num_rows > 0) {
+                                            $postrow = $postquery->fetch_array(); ?>
                                         <form action="editcode.php" method="POST" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <?php
-                                            $category = $db->query("SELECT * FROM categories WHERE status ='0'");
-                                            if($category->num_rows>0){
-                                                ?>
+                                            $category = $db->query(
+                                                "SELECT * FROM categories WHERE status ='0'"
+                                            );
+                                            if ($category->num_rows > 0) { ?>
                                         <label for="">Category List</label>
                                         <select name="category_id" required class="form-control">
                                             <option value="">--Select Category--</option>
-                                            <?php
-                                            foreach($category as $category_item){
-
-                                                ?>
-                                                <option value="<?=$category_item['id']?>"<?=$category_item['id'] == $postrow['category_id'] ? 'selected' : '' ?>>
-                                                <?=$category_item['name']?>
+                                            <?php foreach (
+                                                $category
+                                                as $category_item
+                                            ) { ?>
+                                                <option value="<?= $category_item[
+                                                    "id"
+                                                ] ?>"<?= $category_item["id"] ==
+$postrow["category_id"]
+    ? "selected"
+    : "" ?>>
+                                                <?= $category_item["name"] ?>
                                             </option>
-                                                <?php
-                                            }
-                                            ?>
+                                                <?php } ?>
                                         </select>
-                                                <?php
-                                            }
-                                            else{
-                                                ?>
+                                                <?php } else { ?>
                                                 <h6>No Category Available</h6>
-                                                <?php
-                                            }
+                                                <?php }
                                             ?>
 
                                         </div>
                                     <div class="col-md-6 mb-3">
-                                        <input type="hidden" name="post_id" value="<?=$postrow['id']?>">
+                                        <input type="hidden" name="post_id" value="<?= $postrow[
+                                            "id"
+                                        ] ?>">
                                             <label for="">Name</label>
-                                            <input type="text" name="name" value="<?=$postrow['name']?>" required class="form-control">
+                                            <input type="text" name="name" value="<?= $postrow[
+                                                "name"
+                                            ] ?>" required class="form-control">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="">Slug(URL)</label>
-                                            <input type="text" name="slug" value="<?=$postrow['slug']?>" required class="form-control">
+                                            <input type="text" name="slug" value="<?= $postrow[
+                                                "slug"
+                                            ] ?>" required class="form-control">
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="">Description</label>
-                                            <textarea name="description" required class="form-control" id="summernote"  rows="4"><?= htmlentities($postrow['description'])?></textarea>
+                                            <textarea name="description" required class="form-control" id="summernote"  rows="4"><?= htmlentities(
+                                                $postrow["description"]
+                                            ) ?></textarea>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="">Meta Title</label>
-                                            <input type="text" name="meta_title" value="<?=$postrow['meta_title']?>" required class="form-control">
+                                            <input type="text" name="meta_title" value="<?= $postrow[
+                                                "meta_title"
+                                            ] ?>" required class="form-control">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                         <label for="">Meta Description</label>
-                                            <textarea name="meta_description" max="191" required class="form-control"  rows="4"><?=$postrow['meta_description']?></textarea>
+                                            <textarea name="meta_description" max="191" required class="form-control"  rows="4"><?= $postrow[
+                                                "meta_description"
+                                            ] ?></textarea>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="">Meta Keyword</label>
-                                            <textarea name="meta_keyword" max="191" required class="form-control" rows="4"><?=$postrow['meta_keyword']?></textarea>
+                                            <textarea name="meta_keyword" max="191" required class="form-control" rows="4"><?= $postrow[
+                                                "meta_keyword"
+                                            ] ?></textarea>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="">Image</label>
-                                            <input type="hidden" name="old_image" value="<?=$postrow['image']?>" class="form-control"></textarea>
+                                            <input type="hidden" name="old_image" value="<?= $postrow[
+                                                "image"
+                                            ] ?>" class="form-control"></textarea>
                                             <input type="file" name="image" class="form-control"></textarea>
                                         </div>
 
                                         <div class="col-md-6 mb-3">
                                         <label for="">Status</label><br>
-                                            <input type="checkbox" name="status" <?=$postrow['status']=='1'?'checked':'';?> width="70px" height="70px"/> 
+                                            <input type="checkbox" name="status" <?= $postrow[
+                                                "status"
+                                            ] == "1"
+                                                ? "checked"
+                                                : "" ?> width="70px" height="70px"/> 
                                             Checked = Hidden, UnChecked = Visible
                                         </div>
                                         <div class="col-md-12 mb-3">
@@ -110,15 +126,13 @@ include 'includes/sidebar.php';
                                 </form>
 
                                             <?php
-                                        }
-                                        else{
-                                            ?>
+                                        } else {
+                                             ?>
                                             <h4>No Record Found</h4>
 
                                             <?php
                                         }
-                                    }
-                                    ?>
+                                    } ?>
 
                                 </div>
                             </div>
@@ -126,7 +140,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

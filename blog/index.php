@@ -1,46 +1,52 @@
 <?php
 session_start();
-include '../databases/db_connect.php';
+include "../databases/db_connect.php";
 
-include 'header.php';
-include 'navbar.php';
-
-
+include "header.php";
+include "navbar.php";
 ?>
 <div class="py-5 bg-light">
     <div class="container">
-        <?php include '../includes/message.php'; ?>
+        <?php include "../includes/message.php"; ?>
         <div class="row">
             <h2 class="latest text-align-center">Latest Post</h2>
             <div class="cover">
                 <?php
-                $blog_category = $db->query("SELECT p.*, c.name AS cname FROM posts p, categories c WHERE c.id = p.category_id AND p.status = '0' ORDER BY p.id DESC LIMIT 15");
+                $blog_category = $db->query(
+                    "SELECT p.*, c.name AS cname FROM posts p, categories c WHERE c.id = p.category_id AND p.status = '0' ORDER BY p.id DESC LIMIT 15"
+                );
                 if ($blog_category->num_rows > 0) {
-                    foreach ($blog_category as $blogitems) {
-
-                ?>
+                    foreach ($blog_category as $blogitems) { ?>
 
 
                         <div class="post bg-dark">
-                            <a class="postitems text-decoration-none" href="post.php?title=<?= $blogitems['slug'] ?>">
+                            <a class="postitems text-decoration-none" href="post.php?title=<?= $blogitems[
+                                "slug"
+                            ] ?>">
 
-                                <?php
-                                if ($blogitems['image'] != NULL) : ?>
-                                    <img src="../uploads/posts/<?= $blogitems['image'] ?>" class="showimg" alt="<?= $blogitems['name']; ?>">
+                                <?php if ($blogitems["image"] != null): ?>
+                                    <img src="../uploads/posts/<?= $blogitems[
+                                        "image"
+                                    ] ?>" class="showimg" alt="<?= $blogitems[
+    "name"
+] ?>">
                                 <?php endif; ?>
                                     <div class="showbody">
                                 <p class="sub-desc ">
-                                    <?= $blogitems['name'] ?> <br><?= $blogitems['meta_description'] ?>
+                                    <?= $blogitems[
+                                        "name"
+                                    ] ?> <br><?= $blogitems[
+     "meta_description"
+ ] ?>
                                 </p> 
-                                #<?= $blogitems['cname'] ?>
+                                #<?= $blogitems["cname"] ?>
                                 <br>
                                 <button class="btn btn-primary w-100">Read More</button>
                            </div> 
                         </a>
 
                         </div>
-                <?php
-                    }
+                <?php }
                 }
                 ?>
 
@@ -80,9 +86,7 @@ include 'navbar.php';
 
 </div>
 </div>
-    <?php
-    include 'footer.php';
-    ?>
+    <?php include "footer.php"; ?>
     <!-- <script>
     setTimeout(function() {
         $("#loading").hide();

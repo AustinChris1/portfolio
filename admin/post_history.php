@@ -1,25 +1,22 @@
 <?php
 
-include '../includes/authentication.php';
-include '../includes/adminauthentication.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
+include "../includes/authentication.php";
+include "../includes/adminauthentication.php";
+include "includes/header.php";
+include "includes/sidebar.php";
+
 // if (isset($_SESSION['auth'])){
 //   $_SESSION['message'] = "You are already logged in";
 //   header('Location:../user/home.php');
 //   exit();
 // }
-
-
 ?>
                     <div class="container-fluid px-4">
                             
                         </ol>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -45,41 +42,50 @@ include 'includes/sidebar.php';
                                             <tbody>
                                                 <?php
                                                 // $posts = $db->query("SELECT * FROM posts WHERE status !='2'");
-                                                $posts = $db->query("SELECT p.*, c.name AS cname FROM posts p, categories c WHERE c.id = p.category_id AND p.status = '2'");
-                                                if($posts->num_rows>0){
-                                                    foreach($posts as $post){
-
-                                                        ?>
+                                                $posts = $db->query(
+                                                    "SELECT p.*, c.name AS cname FROM posts p, categories c WHERE c.id = p.category_id AND p.status = '2'"
+                                                );
+                                                if ($posts->num_rows > 0) {
+                                                    foreach (
+                                                        $posts
+                                                        as $post
+                                                    ) { ?>
                                                 <tr>
-                                                <td><?=$post['id']?></td>
-                                                <td><?=$post['name']?></td>
-                                                <td><?=$post['cname']?></td>
+                                                <td><?= $post["id"] ?></td>
+                                                <td><?= $post["name"] ?></td>
+                                                <td><?= $post["cname"] ?></td>
                                                 <td>
-                                                    <img src="../uploads/posts/<?=$post['image']?>" width="60px" height="60px" alt="">
+                                                    <img src="../uploads/posts/<?= $post[
+                                                        "image"
+                                                    ] ?>" width="60px" height="60px" alt="">
                                             </td>
-                                            <td><?=$post['status'] == '1' ? 'Hidden' : 'Visible'?></td>
+                                            <td><?= $post["status"] == "1"
+                                                ? "Hidden"
+                                                : "Visible" ?></td>
 
                                             <td><form action="editcode.php" method="post">
-                                            <button type="submit" name="restore_post" value="<?=$post['id']?>" class="btn btn-warning">Restore</button>
+                                            <button type="submit" name="restore_post" value="<?= $post[
+                                                "id"
+                                            ] ?>" class="btn btn-warning">Restore</button>
                                             </form>
                                             </td>
                                                 <td>
-                                                    <a href="post_edit?id=<?=$post['id']?>" class="btn btn-info">Edit</a>
+                                                    <a href="post_edit?id=<?= $post[
+                                                        "id"
+                                                    ] ?>" class="btn btn-info">Edit</a>
                                                 </td>
                                                 <td><form action="editcode.php" method="post">
-                                            <button type="submit" name="post_history_delete" value="<?=$post['id']?>" class="btn btn-danger">Delete</button>
+                                            <button type="submit" name="post_history_delete" value="<?= $post[
+                                                "id"
+                                            ] ?>" class="btn btn-danger">Delete</button>
                                             </form>
                                             </td>
 
                                                 </tr>
 
-                                                        <?php
-
-                                                    }
-
-                                                }
-                                                else{
-                                                    ?>
+                                                        <?php }
+                                                } else {
+                                                     ?>
                                                 <tr>
                                                     <td colspan="6">No Deleted History Available</td>
                                                 </tr>
@@ -99,7 +105,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

@@ -1,17 +1,15 @@
 <?php
-include '../includes/authentication.php';
+include "../includes/authentication.php";
 
-$page_title ="Home Page";
-$meta_description ="Home - Spectra Web-X";
+$page_title = "Home Page";
+$meta_description = "Home - Spectra Web-X";
 $meta_keyword = "Spectra Blog, Academy";
-include 'header.php';
-include 'navbar.php';
+include "header.php";
+include "navbar.php";
 ?>
 
         <div id="Specweb">
-          <?php            
-          include '../includes/message.php';
-          ?>
+          <?php include "../includes/message.php"; ?>
           <div class="area">
             <h1> 
     Welcome To Spectra Web-X!</h1>
@@ -20,13 +18,9 @@ include 'navbar.php';
             <br />
 
             <a href="logout.php" title="login">Log Out</a>
-            <?php
-            if($_SESSION['auth_role'] !== ''):
-              ?>
+            <?php if ($_SESSION["auth_role"] !== ""): ?>
             <a href="../admin/">Admin Portal</a>
-            <?php
-            endif;
-            ?>
+            <?php endif; ?>
 
           </div>
           <img src="../assets/spectrarobo.webp" class="robo" />
@@ -138,9 +132,7 @@ include 'navbar.php';
           maxime fugit incidunt laborum placeat cum earum officia veniam et
           deserunt.
         </div>
-        <?php
-        include 'footer.php';
-        ?>
+        <?php include "footer.php"; ?>
         <script>
           setTimeout(function () {
             $("#loading").hide();

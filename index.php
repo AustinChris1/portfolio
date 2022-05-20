@@ -1,25 +1,20 @@
- 
+
  <?php
+ require_once "databases/db_connect.php";
+ include_once "visitor_log.php";
 
-require_once 'databases/db_connect.php';
-include_once 'visitor_log.php';
-
-session_start();
-// include 'includes/config.php';
-include 'includes/header.php';
-if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
-  // $_SESSION['message'] = "You are already logged in";
-  header('Location:user/home');
-  exit();
-}
-
-
-?>
+ session_start();
+ // include 'includes/config.php';
+ include "includes/header.php";
+ if (isset($_SESSION["auth"])) {
+     // $_SESSION['message'] = "You are already logged in";
+     header("Location:user/home");
+     exit();
+ }
+ ?>
  <title>Spectra Web-X</title>
 
-      <?php
-      include 'includes/navbar.php'
-      ?>
+      <?php include "includes/navbar.php"; ?>
       <div id="Specweb">
         <div class="area">
           <h1>Welcome To Spectra Web-X</h1>
@@ -130,9 +125,7 @@ if(isset($_SESSION['auth']) || isset($_COOKIE['logincookie'])){
         maxime fugit incidunt laborum placeat cum earum officia veniam et
         deserunt.
       </div>
-<?php
-include 'includes/footer.php';
-?>      
+<?php include "includes/footer.php"; ?>
         <script>
           setTimeout(function () {
             $("#loading").hide();

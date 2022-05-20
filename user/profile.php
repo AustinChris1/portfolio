@@ -1,16 +1,11 @@
 <?php
 
-include_once '../includes/authentication.php';
-include 'header.php';
-include 'navbar.php';
-
-
-
+include_once "../includes/authentication.php";
+include "header.php";
+include "navbar.php";
 ?>
 <div class="container-fluid px-4">
-    <?php
-    include '../includes/message.php';
-    ?>
+    <?php include "../includes/message.php"; ?>
     </ol>
     <div class="row mt-4">
         <div class="col-md-12">
@@ -21,24 +16,23 @@ include 'navbar.php';
                     </h4>
                 </div>
                 <div class="card-body">
-                    <?php
+                    <?php if (isset($_SESSION["auth_user"]["id"])) {
+                        $user_id = $_SESSION["auth_user"]["id"];
 
-                    if (isset($_SESSION['auth_user']['id'])) {
-                        $user_id = $_SESSION['auth_user']['id'];
-
-                        $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
+                        $profilequery = $db->query(
+                            "SELECT * FROM spectradb WHERE id='$user_id'"
+                        );
                         if ($profilequery->num_rows > 0) {
-
                             foreach ($profilequery as $user) {
-                                $image = $user['user_image'];
+                                $image = $user["user_image"];
 
-                                if ($image != NULL) {
-
-                    ?>
+                                if ($image != null) { ?>
 
                                     <form method="POST" enctype="multipart/form-data">
                                         <div class="row">
-                                        <input type="hidden" value="<?= $user['id']; ?>" name="id">
+                                        <input type="hidden" value="<?= $user[
+                                            "id"
+                                        ] ?>" name="id">
 
                                             <div class="col-md-12 mb-3">
                                                 <div class="userimage">
@@ -46,67 +40,91 @@ include 'navbar.php';
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Name</label>
-                                                <input type="text" name="name" readonly value="<?= $user['name']; ?>" class="form-control">
+                                                <input type="text" name="name" readonly value="<?= $user[
+                                                    "name"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Username</label>
-                                                <input type="text" name="username" readonly value="<?= $user['username']; ?>" class="form-control">
+                                                <input type="text" name="username" readonly value="<?= $user[
+                                                    "username"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Email</label>
-                                                <input type="text" name="email" readonly value="<?= $user['email']; ?>" class="form-control">
+                                                <input type="text" name="email" readonly value="<?= $user[
+                                                    "email"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Phone</label>
-                                                <input type="text" name="phone" readonly value="<?= $user['phone']; ?>" class="form-control">
+                                                <input type="text" name="phone" readonly value="<?= $user[
+                                                    "phone"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Registration Date</label>
-                                                <input type="text" name="" readonly value="<?= date('d-M-Y', strtotime($user['created'])); ?>" class="form-control">
+                                                <input type="text" name="" readonly value="<?= date(
+                                                    "d-M-Y",
+                                                    strtotime($user["created"])
+                                                ) ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Ip Address</label>
-                                                <input type="text" name="" readonly value="<?= $user['user_ip_address'] ?>" class="form-control">
+                                                <input type="text" name="" readonly value="<?= $user[
+                                                    "user_ip_address"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <?php
-                                            $coursequery = $db->query("SELECT * FROM courses");
-                                            if($coursequery->num_rows>0){
-                                                $courserow= $coursequery->fetch_array();
-                                                ?>
+                                            $coursequery = $db->query(
+                                                "SELECT * FROM courses"
+                                            );
+                                            if ($coursequery->num_rows > 0) {
+                                                $courserow = $coursequery->fetch_array(); ?>
     
                                                 <div class="col-md-12 mb-3">
                                             <?php
-                                             $academycc = $db->query("SELECT Blockchain_Development, Artificial_Intelligence FROM spectradb WHERE Artificial_Intelligence = '1' LIMIT 1");
-                                                if($academycc->num_rows>0){
-                                                    $acad = $profilequery->fetch_array();
-                                                    if($acad ['Artificial_Intelligence'] !== 1){    
-
-                                                    ?>
+                                            $academycc = $db->query(
+                                                "SELECT Blockchain_Development, Artificial_Intelligence FROM spectradb WHERE Artificial_Intelligence = '1' LIMIT 1"
+                                            );
+                                            if ($academycc->num_rows > 0) {
+                                                $acad = $profilequery->fetch_array();
+                                                if (
+                                                    $acad[
+                                                        "Artificial_Intelligence"
+                                                    ] !== 1
+                                                ) { ?>
                                         <label for="">Academy List</label>
                                         <select name="academy_id" required class="form-control">
                                             <option value="">--Select Course You Want To Offer--</option>
                                             <?php
-                                                // foreach($academycc as $acad){
-                                                 $academy = $db->query("SELECT * FROM academy WHERE status ='0'");
-                                            if($academy->num_rows>0){ 
-                                                foreach($academy as $academy_item){
-                                                ?>
-                                                <option value="<?=$academy_item['id']?>"<?=$academy_item['id'] == $courserow['academy_id'] ? 'selected' : '1' ?>>
-                                                <?=$academy_item['name']?>
+                                            // foreach($academycc as $acad){
+                                            $academy = $db->query(
+                                                "SELECT * FROM academy WHERE status ='0'"
+                                            );
+                                            if ($academy->num_rows > 0) {
+                                                foreach (
+                                                    $academy
+                                                    as $academy_item
+                                                ) { ?>
+                                                <option value="<?= $academy_item[
+                                                    "id"
+                                                ] ?>"<?= $academy_item["id"] ==
+$courserow["academy_id"]
+    ? "selected"
+    : "1" ?>>
+                                                <?= $academy_item["name"] ?>
                                             </option>
-                                                <?php
-                                            }      
-                                        }
-                                            else{
-                                                ?>
+                                                <?php }
+                                            } else {
+                                                 ?>
                                                 <option>You are not offering any course</option>
                                         </select>
                                                 <?php
                                             }
-                                        }
                                             }
-                                            else{
-                                                ?>
+                                            } else {
+                                                 ?>
                                                 <h6>No Course Available</h6>
                                                 <?php
                                             }
@@ -114,15 +132,13 @@ include 'navbar.php';
 
                                         </div>
                                             <?php
-                                        }
-                                        else{
-                                            ?>
+                                            } else {
+                                                 ?>
                                             <h4>No Record Found</h4>
 
                                             <?php
-                                        }
-                                    
-                                    ?>
+                                            }
+                                            ?>
 
 
                                             <div class="col-md-6 mb-3">
@@ -134,12 +150,12 @@ include 'navbar.php';
                                     </form>
 
 
-                                <?php
-                                } else {
-                                ?>
+                                <?php } else { ?>
                                     <form action="usercode.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
-                                        <input type="hidden" value="<?= $user['id']; ?>" name="id">
+                                        <input type="hidden" value="<?= $user[
+                                            "id"
+                                        ] ?>" name="id">
 
                                             <div class="col-md-12 mb-3">
 
@@ -149,23 +165,34 @@ include 'navbar.php';
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Name</label>
-                                                <input type="text" name="name" readonly value="<?= $user['name']; ?>" class="form-control">
+                                                <input type="text" name="name" readonly value="<?= $user[
+                                                    "name"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Username</label>
-                                                <input type="text" name="username" readonly value="<?= $user['username']; ?>" class="form-control">
+                                                <input type="text" name="username" readonly value="<?= $user[
+                                                    "username"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Email</label>
-                                                <input type="text" name="email" readonly value="<?= $user['email']; ?>" class="form-control">
+                                                <input type="text" name="email" readonly value="<?= $user[
+                                                    "email"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label>Phone</label>
-                                                <input type="text" name="phone" readonly value="<?= $user['phone']; ?>" class="form-control">
+                                                <input type="text" name="phone" readonly value="<?= $user[
+                                                    "phone"
+                                                ] ?>" class="form-control">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Registration Date</label>
-                                                <input type="text" name="phone" readonly value="<?= date('d-M-Y', strtotime($user['created'])); ?>" class="form-control">
+                                                <input type="text" name="phone" readonly value="<?= date(
+                                                    "d-M-Y",
+                                                    strtotime($user["created"])
+                                                ) ?>" class="form-control">
                                             </div>
 
                                             <div class="col-md-6 mb-3">
@@ -173,31 +200,25 @@ include 'navbar.php';
                                             </div>
                                         </div>
                                     </form>
-                            <?php
-                                }
+                            <?php }
                             }
                         } else {
-                            ?>
+                             ?>
                             <h4>User Record Not Found</h4>
                         <?php
                         }
                     } else {
-                        ?>
+                         ?>
                         <h4>User Record Not Found</h4>
                     <?php
-                    }
-
-                    ?>
+                    } ?>
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php
-include 'footer.php';
-
-?>
+<?php include "footer.php"; ?>
 <script>
     setTimeout(function() {
         $("#loading").hide();
@@ -213,7 +234,7 @@ include 'footer.php';
 
     .userimage {
         border-radius: 50%;
-    background: url("../uploads/user_images/<?= $user['user_image'] ?>");
+    background: url("../uploads/user_images/<?= $user["user_image"] ?>");
     position: relative;
     background-position: center;
     background-repeat: no-repeat;

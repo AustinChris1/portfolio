@@ -1,14 +1,11 @@
 <?php
 
-include_once '../includes/authentication.php';
-include_once '../includes/adminauthentication.php';
+include_once "../includes/authentication.php";
+include_once "../includes/adminauthentication.php";
 // include 'middleware/superadminauth.php';
 
-include 'includes/header.php';
-include 'includes/sidebar.php';
-
-
-
+include "includes/header.php";
+include "includes/sidebar.php";
 ?>
                     <div class="container-fluid px-4">
                         <h4 class="mt-4">Users</h4>
@@ -18,9 +15,7 @@ include 'includes/sidebar.php';
                         </ol>
                         <div class="row">
                             <div class="col-md-12">
-                        <?php
-                        include 'includes/message.php';
-                        ?>
+                        <?php include "includes/message.php"; ?>
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Registered Users
@@ -41,76 +36,84 @@ include 'includes/sidebar.php';
                                                 <th>Phone</th>
                                                 <th>Roles</th>
                                                 <th>Date created</th>
-                                                 <?php if($_SESSION['auth_role']=='super'):?>
+                                                 <?php if (
+                                                     $_SESSION["auth_role"] ==
+                                                     "super"
+                                                 ): ?>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
-                                                <?php endif;?>
+                                                <?php endif; ?>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                            $regquery = $db->query("SELECT * FROM spectradb");
-                                            
-                                            if ($regquery->num_rows > 0) 
-                                                {
+                                            <?php
+                                            $regquery = $db->query(
+                                                "SELECT * FROM spectradb"
+                                            );
 
-                                                foreach($regquery as $row)
-                                                {
-                                                    ?>
+                                            if ($regquery->num_rows > 0) {
+                                                foreach ($regquery as $row) { ?>
                                             <tr>
-                                                <td><?= $row['id'];?></td>
+                                                <td><?= $row["id"] ?></td>
                                                 <td>
                                                     <?php
-                                                    $uimg = $row['user_image'];
-                                                    if($uimg != NULL){
-                                                    ?>
-                                                    <img src="../uploads/user_images/<?=$row['user_image']?>" style="border-radius:50%;" width="85px" height="100px"  alt="">
-                                                    <?php
-                                                    }
-                                                    else{
-                                                        ?>
+                                                    $uimg = $row["user_image"];
+                                                    if ($uimg != null) { ?>
+                                                    <img src="../uploads/user_images/<?= $row[
+                                                        "user_image"
+                                                    ] ?>" style="border-radius:50%;" width="85px" height="100px"  alt="">
+                                                    <?php } else { ?>
                                                         No Image Available
-                                                        <?php
-                                                        }
-                                                        ?>
-                                            </td>
-
-                                                <td><?= $row['name'];?></td>
-                                                <td><?= $row['username'];?></td>
-                                                <td><?= $row['email'];?></td>
-                                                <td><?= $row['phone'];?></td>
-                                                <td>
-                                                    <?php
-                                                    if($row['usertype'] == 'admin'){
-                                                        echo 'Admin';
-                                                    }
-                                                    elseif($row['usertype'] == ''){
-                                                        echo 'User';
-                                                    }
-                                                    elseif($row['usertype'] == 'super'){
-                                                        echo 'Super Admin';
-                                                    }
+                                                        <?php }
                                                     ?>
                                             </td>
-                                            <td><?= $row['created'];?></td>
 
-                                                <td><a href="edit_register.php?id=<?= $row['id'];?>" class="btn btn-secondary">Edit</a></td>
+                                                <td><?= $row["name"] ?></td>
+                                                <td><?= $row["username"] ?></td>
+                                                <td><?= $row["email"] ?></td>
+                                                <td><?= $row["phone"] ?></td>
+                                                <td>
+                                                    <?php if (
+                                                        $row["usertype"] ==
+                                                        "admin"
+                                                    ) {
+                                                        echo "Admin";
+                                                    } elseif (
+                                                        $row["usertype"] == ""
+                                                    ) {
+                                                        echo "User";
+                                                    } elseif (
+                                                        $row["usertype"] ==
+                                                        "super"
+                                                    ) {
+                                                        echo "Super Admin";
+                                                    } ?>
+                                            </td>
+                                            <td><?= $row["created"] ?></td>
+
+                                                <td><a href="edit_register.php?id=<?= $row[
+                                                    "id"
+                                                ] ?>" class="btn btn-secondary">Edit</a></td>
                                                 
-                                                    <?php if($_SESSION['auth_role']=='super'):?>
+                                                    <?php if (
+                                                        $_SESSION[
+                                                            "auth_role"
+                                                        ] == "super"
+                                                    ): ?>
                                                         <td>
                                                     <form action="editcode.php" method="POST">   
-                                                        <button type="submit" name="deleteuser" value="<?=$row['id'];?>" class="btn btn-danger">Delete</a>
+                                                        <button type="submit" name="deleteuser" value="<?= $row[
+                                                            "id"
+                                                        ] ?>" class="btn btn-danger">Delete</a>
                                                     
                                                     </form>
                                                     </td>
-                                                    <?php endif;?>
+                                                    <?php endif; ?>
                                             </tr>
 
-                                                    <?php
-                                                }
-                                            }
-                                            else{
-                                                ?>
+                                                    <?php }
+                                            } else {
+                                                 ?>
                                                 <tr>
                                                     <td colspan="7">No record found</td>
                                                 </tr>
@@ -127,7 +130,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
 <?php
-include 'includes/footer.php';
-include 'includes/scripts.php';
+include "includes/footer.php";
+include "includes/scripts.php";
+
 
 ?>

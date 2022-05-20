@@ -1,6 +1,5 @@
 <?php
-include_once '../databases/db_connect.php';
-?>
+include_once "../databases/db_connect.php"; ?>
 </head>
 <body>
       <!-- <div id="loading">
@@ -24,16 +23,14 @@ include_once '../databases/db_connect.php';
           </a>
         </div>
         <div class="navbar">
-        <?php
-                if(isset($_SESSION['auth_user']['id'])){
-                  $user_id = $_SESSION['auth_user']['id'];
+        <?php if (isset($_SESSION["auth_user"]["id"])) {
+            $user_id = $_SESSION["auth_user"]["id"];
 
-                  $profilequery = $db->query("SELECT * FROM spectradb WHERE id='$user_id'");
-                  if ($profilequery->num_rows > 0) {
-
-                      foreach ($profilequery as $user) {
-
-                ?>
+            $profilequery = $db->query(
+                "SELECT * FROM spectradb WHERE id='$user_id'"
+            );
+            if ($profilequery->num_rows > 0) {
+                foreach ($profilequery as $user) { ?>
 
           <nav>
           <a href="home" >Home</a>
@@ -43,7 +40,9 @@ include_once '../databases/db_connect.php';
             <a href="../courses/" >Courses</a>
             <a href="logout">Log Out</a>
                             <a href="profile" id="navbarDropdown" >
-                                            <?=$_SESSION['auth_user']['username'];?> <i class="fas fa-bell" id="bell"></i>
+                                            <?= $_SESSION["auth_user"][
+                                                "username"
+                                            ] ?> <i class="fas fa-bell" id="bell"></i>
 
                 </a>
 
@@ -62,8 +61,10 @@ include_once '../databases/db_connect.php';
       <div class="mobile">
         <div class="mobnav">
 <span class="profimg">                   
-  <a href="profile"> <img src="../uploads/user_images/<?= $user['user_image']?>" alt="" style="width: 4.5rem; height: 5rem; border-radius: 50%; border-color: #fff;  "> <br>
-                <?=$_SESSION['auth_user']['username'];?>&#128526;
+  <a href="profile"> <img src="../uploads/user_images/<?= $user[
+      "user_image"
+  ] ?>" alt="" style="width: 4.5rem; height: 5rem; border-radius: 50%; border-color: #fff;  "> <br>
+                <?= $_SESSION["auth_user"]["username"] ?>&#128526;
               </a>
                 </span>
           <ul>                           
@@ -75,18 +76,13 @@ include_once '../databases/db_connect.php';
             <a href="logout">Log Out</a>
             <a href="">Notifications<i class="fas fa-bell" id="bell"></i></a>
                         <a href="refferal_stats">Settings<i class="fas fa-cog" id="settings"></i></a>
-                      <?php
-            if($_SESSION['auth_role'] !== ''):
-            ?>
+                      <?php if ($_SESSION["auth_role"] !== ""): ?>
             <a href="../admin/">Admin Portal</a>
-            <?php
-            endif;
-            ?>
+            <?php endif; ?>
 </ul>
         </div>
       </div>
 
-      <?php
-}
-}
-}?>
+      <?php }
+            }
+        } ?>

@@ -1,25 +1,21 @@
 <?php
 
-include '../includes/authentication.php';
-include '../includes/adminauthentication.php';
-include 'includes/header.php';
-include 'includes/sidebar.php';
+include "../includes/authentication.php";
+include "../includes/adminauthentication.php";
+include "includes/header.php";
+include "includes/sidebar.php";
+
 // if (isset($_SESSION['auth'])){
 //   $_SESSION['message'] = "You are already logged in";
 //   header('Location:../user/home.php');
 //   exit();
 // }
-
-
-
 ?>
                     <div class="container-fluid px-4">
                         </ol>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                            <?php
-    include 'includes/message.php';
-    ?>
+                            <?php include "includes/message.php"; ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -58,8 +54,8 @@ include 'includes/sidebar.php';
                         </div>
                         </div>
                         <?php
-                        
-                            include 'includes/footer.php';
-                            include 'includes/scripts.php';
+                        include "includes/footer.php";
+                        include "includes/scripts.php";
 
-                        ?>
+
+?>

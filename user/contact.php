@@ -42,17 +42,15 @@
               <nav>
                 <a href="#about" title="Community">Our Community</a>
                 <a href="contact.php" title="Contact">Contact Us</a>
-                <?php
-                if(isset($_SESSION['auth_user'])):
-                ?>
+                <?php if (isset($_SESSION["auth_user"])): ?>
 
 <a href="../courses/">Courses</a>
 <a href="../user/logout" title="logout">Log Out</a>
 
-            <?php else :?>
+            <?php else: ?>
             <a href="login" title="login">Log In</a>
             <a href="register" title="New Account">Create Free Account</a>
-                      <?php endif;?>
+                      <?php endif; ?>
               </nav>
             </div>
             <span class="menu">
@@ -69,17 +67,15 @@
               <a href="#Community" title="Community">OUR COMMUNITY</a>
               <a href="contact.php" title="Contact">CONTACT US</a>
               <a href="#products" title="Products">PRODUCTS & SERVICES</a>
-              <?php
-                if(isset($_SESSION['auth_user'])):
-                ?>
+              <?php if (isset($_SESSION["auth_user"])): ?>
 
             <a href="logout" title="logout">LOG OUT</a>
 
-            <?php else :?>
+            <?php else: ?>
 
             <a href="login" title="login">LOG IN</a>
             <a href="register" title="New Account">CREATE NEW ACCOUNT</a>
-            <?php endif;?>
+            <?php endif; ?>
 
             </ul>
           </div>
