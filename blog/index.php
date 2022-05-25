@@ -1,6 +1,5 @@
 <?php
-session_start();
-include "../databases/db_connect.php";
+include 'config.php';
 
 include "header.php";
 include "navbar.php";

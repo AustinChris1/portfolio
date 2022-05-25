@@ -23,8 +23,8 @@ function sendemail_verify($name, $email, $verify_token)
     $mail->SMTPSecure = "ssl";
     $mail->Port = 465;
 
-    $mail->Username = $env_pass;
-    $mail->Password = $env_mail;
+    $mail->Username = $env["gmail_username"];
+    $mail->Password = $env["gmail_password"];
 
     $mail->setFrom("spectrawebx@gmail.com", "Spectra Web-X");
     $mail->addAddress($email);

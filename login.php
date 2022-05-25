@@ -47,7 +47,7 @@ include "includes/timer.php";
             <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
             <div class="g-recaptcha" data-sitekey="<?php echo $sitekey; ?>" id="captcha"></div>
              <?php if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] > 2) {
-                 $_SESSION["locked"] = time();
+                 $_SESSION["locked"] = time()+60*10;
                  echo "<p> Please wait for 30 seconds</p>";
              } else {
                   ?>

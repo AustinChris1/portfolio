@@ -57,39 +57,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = $db->query(
             "SELECT * from spectradb WHERE username='$username' and password='$password' LIMIT 1"
         );
-
         if ($loginact) {
             if ($query->num_rows > 0) {
                 $loginrow = $query->fetch_array();
                 if ($loginrow["verify_status"] == "1") {
-                    foreach ($query as $data) {
-                        $user_id = $data["id"];
-                        $username = $data["username"];
-                        $email = $data["email"];
-                        $usertype = $data["usertype"];
-                        $referrer = $data["referrer"];
-                    }
 
-                    $_SESSION["auth"] = true;
-                    $_SESSION["auth_role"] = "$usertype";
-                    $_SESSION["auth_user"] = [
-                        "id" => $user_id,
-                        "username" => $username,
-                        "email" => $email,
-                        "referrer" => $referrer,
-                        // 'user_image' => $user_image,
-                    ];
+                    $blocked = $loginrow['status'];
+                    if ($blocked != 1) {
 
-                    $trust = $db->query(
-                        "INSERT INTO devices (user_id, browser_info, last_login, last_login_location) VALUES ('" .
-                            $_SESSION["auth_user"]["id"] .
-                            "', '" .
-                            $browser_info .
-                            "', NOW(), '" .
-                            $last_login_location .
-                            "')"
-                    );
-                    if ($trust) {
+                        foreach ($query as $data) {
+                            $user_id = $data["id"];
+                            $username = $data["username"];
+                            $email = $data["email"];
+                            $usertype = $data["usertype"];
+                            $referrer = $data["referrer"];
+                        }
+
+                        $_SESSION["auth"] = true;
+                        $_SESSION["auth_role"] = "$usertype";
+                        $_SESSION["auth_user"] = [
+                            "id" => $user_id,
+                            "username" => $username,
+                            "email" => $email,
+                            "referrer" => $referrer,
+                            // 'user_image' => $user_image,
+                        ];
+
+                        $trust = $db->query(
+                            "INSERT INTO devices (user_id, browser_info, last_login, last_login_location) VALUES ('" .
+                                $_SESSION["auth_user"]["id"] .
+                                "', '" .
+                                $browser_info .
+                                "', NOW(), '" .
+                                $last_login_location .
+                                "')"
+                        );
+                        if ($trust) {
                             if ($_SESSION["auth_role"] == "admin") {
                                 $_SESSION["message"] =
                                     "Hello Admin, Welcome To Dashboard";
@@ -105,10 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 header("Location: admin/");
                                 exit(0);
                             }
+                        } else {
+                            $_SESSION["message"] = "Trust Failed";
+                            header("Location: login");
+                            exit(0);
+                        }
                     } else {
-                        $_SESSION["message"] = "Trust Failed";
+                        $_SESSION["message"] = "You have been blocked";
                         header("Location: login");
-                        exit(0);
                     }
                 } else {
                     // $_SESSION['login_attempts'] += 1;

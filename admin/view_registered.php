@@ -56,14 +56,15 @@ include "includes/sidebar.php";
                                             <tr>
                                                 <td><?= $row["id"] ?></td>
                                                 <td>
-                                                    <?php
+                                                    <a href="user_details?id=<?= $row["id"] ?>"><?php
                                                     $uimg = $row["user_image"];
                                                     if ($uimg != null) { ?>
                                                     <img src="../uploads/user_images/<?= $row[
                                                         "user_image"
                                                     ] ?>" style="border-radius:50%;" width="85px" height="100px"  alt="">
+                                                    </a>
                                                     <?php } else { ?>
-                                                        No Image Available
+                                                        <a href="user_details?id=<?= $row["id"] ?>" style="text-decoration: none;"> No Image Available </a>
                                                         <?php }
                                                     ?>
                                             </td>
@@ -91,7 +92,7 @@ include "includes/sidebar.php";
                                             </td>
                                             <td><?= $row["created"] ?></td>
 
-                                                <td><a href="edit_register.php?id=<?= $row[
+                                                <td><a href="edit_register?id=<?= $row[
                                                     "id"
                                                 ] ?>" class="btn btn-secondary">Edit</a></td>
                                                 

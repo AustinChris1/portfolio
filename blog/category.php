@@ -1,6 +1,5 @@
 <?php
-session_start();
-include "../databases/db_connect.php";
+include 'config.php';
 if (isset($_GET["title"])) {
     $slug = $_GET["title"];
 

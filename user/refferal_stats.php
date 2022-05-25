@@ -1,6 +1,12 @@
 <?php
 include_once "../databases/db_connect.php";
 include_once "../includes/authentication.php";
+    if (isset($_SESSION["locked"])) {
+        $diff = time() - $_SESSION["locked"];
+        if ($diff > 360) {
+            unset($_SESSION["locked"]);
+        }
+    }
 
 if ($_SESSION["auth_user"]) {
 
@@ -9,19 +15,12 @@ if ($_SESSION["auth_user"]) {
     $username = $_SESSION["auth_user"]["username"];
     $referrer = $_SESSION["auth_user"]["referrer"];
 
-    if (isset($_SESSION["locked"])) {
-        $diff = time() - $_SESSION["locked"];
-        if ($diff > 360) {
-            unset($_SESSION["locked"]);
-        }
-    }
 
     function updateMinedBalance($db, $username)
     {
         $updateBalance = $db->query(
             "SELECT * FROM spectradb WHERE username = '$username'"
         );
-        // $uresult = mysqli_query($GLOBALS['con'], $updateBalance);
         if ($updateBalance) {
             if ($updateBalance->num_rows > 0) {
                 $result_fetch = $updateBalance->fetch_assoc();
@@ -152,7 +151,7 @@ $total_ref = mysqli_num_rows($total_ref_query);
   
 <div class="col-md-12 mb-3">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
+                                        <table id="myDataTable" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                 <th>Name</th>
@@ -193,6 +192,15 @@ $total_ref = mysqli_num_rows($total_ref_query);
 }
 include "footer.php";
 ?>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+  $(document).ready( function () {
+    $('#myDataTable').DataTable();
+} );
+</script>
+
+    <script src="../admin/js/Datatable.bootstrap5.min.js"></script>
+
 <script>
     setTimeout(function() {
         $("#loading").hide();

@@ -3,6 +3,21 @@
 include "../includes/authentication.php";
 include "../includes/adminauthentication.php";
 
+if(isset($_POST['unblock'])){
+    $user_id = $_POST["id"];
+    $status == "";
+    $deletequery = $db->query("UPDATE spectradb SET status = '$status' WHERE id = '$user_id'");
+    if ($deletequery) {
+        $_SESSION["message"] = "User unblocked successfully";
+        header("Location:view_registered");
+        exit();
+    } else {
+        $_SESSION["message"] = "Something Went Wrong!";
+        header("Location:blocked");
+        exit();
+    }
+}
+
 if (isset($_POST["course_delete"])) {
     $course_id = $_POST["course_delete"];
 
@@ -421,15 +436,15 @@ if (isset($_POST["update_user"])) {
     $username = $_POST["username"];
     $email = $_POST["email"];
     $role = $_POST["usertype"] == true ? "admin" : "";
-    $password = $_POST["password"];
+    // $password = $_POST["password"];
     $phone = $_POST["phone"];
-    $status = $_POST["status"] == true ? "1" : "0";
+    $status = $_POST["status"] == true ? "1" : "";
 
-    $password = $db->real_escape_string($password);
-    $password = md5($password);
+    // $password = $db->real_escape_string($password);
+    // $password = md5($password);
 
     $editquery = $db->query(
-        "UPDATE spectradb SET name='$name', username='$username', email='$email', usertype='$role', password='$password', phone='$phone', status='$status' WHERE id='$user_id'"
+        "UPDATE spectradb SET name='$name', username='$username', email='$email', usertype='$role', phone='$phone', status='$status' WHERE id='$user_id'"
     );
 
     if ($editquery) {
