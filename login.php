@@ -9,7 +9,7 @@ include "includes/header.php";
 include "databases/captcha.php";
 include "includes/timer.php";
 ?>
- <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+ <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
  <?php if (isset($_SESSION["auth"])) {
      $_SESSION["message"] = "You are already logged in";
      header("Location:user/home");
@@ -34,12 +34,12 @@ include "includes/timer.php";
 
             <div class="wrap-input100">
               <span class="label-input100" for="username">Username</span>
-              <input class="input100" type="text" id="username" name="username">
+              <input class="input100" type="text" autocomplete="username" id="username" name="username">
             </div>
 
             <div class="wrap-input100">
               <span class="label-input100" for="password">Password</span>
-              <input class="input100" type="password" name="password" id="password">
+              <input class="input100" autocomplete="current-password" type="password" name="password" id="password">
             </div>
 
             <div class="form-check">
@@ -50,8 +50,9 @@ include "includes/timer.php";
             </div>
 
             <!-- recaptcha -->
-            <div class="d-flex justify-content-center position-relative pt-3 pb-3">
-              <div class="g-recaptcha" data-sitekey="<?php echo $sitekey; ?>"></div>
+            <div id="recaptcha"></div>
+            <div class="d-flex justify-content-center pt-3 pb-3 mt-3 mb-3">
+              <div class="g-recaptcha d-inline-block" data-sitekey="<?php echo $sitekey; ?>"></div>
             </div>
 
             <?php if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] > 2): ?>
@@ -100,11 +101,12 @@ include "includes/timer.php";
         </div>
       </div>
 
-      <script src="js/nav.js"></script>
-      <script src="js/text.js"></script>
-      <script src="js/bootstrap5.bundle.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://www.google.com/recaptcha/api.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- <script src="js/nav.js"></script> -->
+      <!-- <script src="js/text.js"></script> -->
+      <!-- <script src="js/bootstrap5.bundle.min.js"></script> -->
       <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
       <script src="js/login.js"></script>
       <script>
@@ -138,12 +140,6 @@ include "includes/timer.php";
       </div>
     </main>
 
-    <script src="../js/nav.js"></script>
-    <script src="../js/text.js"></script>
-    <script src="../js/bootstrap5.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <style>
   @import url("css/fonts.css");
   @import url("css/util.css");
@@ -152,6 +148,7 @@ include "includes/timer.php";
   #head {
     position: sticky;
   }
+
 
   /*
   input:invalid{
