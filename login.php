@@ -9,7 +9,7 @@ include "includes/header.php";
 include "databases/captcha.php";
 include "includes/timer.php";
 ?>
- <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+ <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
  <?php if (isset($_SESSION["auth"])) {
      $_SESSION["message"] = "You are already logged in";
      header("Location:user/home");
@@ -21,92 +21,136 @@ include "includes/timer.php";
 
     <?php include "includes/navbar.php"; ?>
 
-      <section id="login">
-        <div class="log">
-          <h1 class="hreglog">LOG IN</h1>
+      <div class="container-contact100">
+        <div class="wrap-contact100">
+
+          <h1 class="contact100-form-title mt-4 mb-4">
+            Log In
+          </h1>
+
           <?php include "includes/message.php"; ?>
 
-          <form action="logincode.php" method="post" class="reglogform">
-          <i class="fas fa-user" id="logi"></i>
-            <input
-              class="logininput"
-              type="text"
-              name="username"
-              placeholder="Username"
-              autofocus="true"
-              required
-              pattern="[A-Za-z0-9_]{5,15}" maxlength="15"
-                            title="Must not contain any symbol, not less than 5 and not more than 15 characters"
-            /><br /><br /><i class="fas fa-lock" id="logi"></i>
-            <input type="password" name="password" id="password" class="logininput" placeholder="Password" autofocus="true" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
-            <i class="bi bi-eye-slash" id="togglePassword"></i>            <br />
-            <input  type="checkbox"  id="terms"  class="terms"  name="terms"  required/>
-          <label for="terms" class="terms"
-            >Remeber Me </label
-          ><br /><br />
-            <a href="password_reset.php" class="forgot">Forgot Password?</a> <br>
-            <div class="g-recaptcha" data-sitekey="<?php echo $sitekey; ?>" id="captcha"></div>
-             <?php if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] > 2) {
-                 $_SESSION["locked"] = time()+60*10;
-                 echo "<p> Please wait for 30 seconds</p>";
-             } else {
-                  ?>
-    <button type="submit" id="submit" name="login">Login</button>
-<?php
-             } ?>
+          <form action="logincode.php" method="post" class="contact100-form reglogform">
+
+            <div class="wrap-input100">
+              <span class="label-input100" for="username">Username</span>
+              <input class="input100" type="text" autocomplete="username" id="username" name="username">
+            </div>
+
+            <div class="wrap-input100">
+              <span class="label-input100" for="password">Password</span>
+              <input class="input100" autocomplete="current-password" type="password" name="password" id="password">
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="terms" id="terms">
+              <label class="form-check-label" for="terms">
+                Remember me?
+              </label>
+            </div>
+
+            <!-- recaptcha -->
+            <div id="recaptcha"></div>
+            <div class="d-flex justify-content-center pt-3 pb-3 mt-3 mb-3">
+              <div class="g-recaptcha d-inline-block" data-sitekey="<?php echo $sitekey; ?>"></div>
+            </div>
+
+            <?php if (isset($_SESSION["login_attempts"]) && $_SESSION["login_attempts"] > 2): ?>
+              <?php if (!isset($_SESSION["locked"]) || $_SESSION["locked"] === 0): ?>
+                <?php $_SESSION["locked"] = time() + 30 ?>
+                <p class="text-center">
+                  Please wait for 30 seconds
+                </p>
+                <script>
+                  setTimeout(() => window.location = window.location, 1000 * 30)
+                </script>
+              <?php elseif (time() >= $_SESSION["locked"]): ?>
+                <?php
+                  $_SESSION["login_attempts"] = 0;
+                  $_SESSION["locked"] = 0;
+                ?>
+                <button type="submit" id="submit" class="contact100-form-btn" name="login">Login</button>
+              <?php else: ?>
+                <p class="text-center">
+                  Please wait for 30 seconds
+                </p>
+                <script>
+                  setTimeout(() => window.location = window.location, 1000 * 30)
+                </script>
+              <?php endif; ?>
+            <?php else: ?>
+              <button type="submit" id="submit" class="contact100-form-btn" name="login">Login</button>
+            <?php endif; ?>
           </form>
-          <p class="reglog">
-            Don't have an account? Register <a href="register.php">here</a>
-          </p>
+
+          <!-- registration link -->
+          <div class="mt-3 mb-3 text-center">
+            <span class="d-block">
+              Don't have an account?
+            </span>
+            <a class="d-block" style="color: orange" href="register.php">
+              Register here
+            </a>
+          </div>
+
+          <!-- forgot password link -->
+          <div class="mt-3 text-center">
+            <a href="password_reset.php" style="color: orange;">Forgot Password?</a>
+          </div>
+
         </div>
-      </section>
-          <script src="js/nav.js"></script>
-<script src="js/text.js"></script>
-<script src="js/bootstrap5.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      </div>
+
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- <script src="js/nav.js"></script> -->
+      <!-- <script src="js/text.js"></script> -->
+      <!-- <script src="js/bootstrap5.bundle.min.js"></script> -->
       <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+      <script src="js/login.js"></script>
       <script>
-        //toggle password
-const togglePassword = document.querySelector("#togglePassword");
-const password = document.querySelector("#password");
+      //toggle password
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
 
-togglePassword.addEventListener("click", function () {
-    // toggle the type attribute
-    const type = password.getAttribute("type") === "password" ? "text" : "password";
-    password.setAttribute("type", type);
+      togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
 
-    // toggle the icon
-    this.classList.toggle("bi-eye");
-});
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+      });
 
 
+      setTimeout(function () {
+        $("#loading").hide();
+      }, 3100);
+      setTimeout(function () {
+        $(".content").show();
+      }, 3000);
+
+      function onFormSubmit() {
+        event.preventDefault();
+
+        console.log("Mined");
+      }
       </script>
-      <script>
-          setTimeout(function () {
-            $("#loading").hide();
-          }, 3100);
-          setTimeout(function () {
-            $(".content").show();
-          }, 3000);
-
-          function onFormSubmit() {
-    event.preventDefault();
-
-    console.log("Mined");
-}
-
-        </script>
       </div>
     </main>
 
-    <script src="../js/nav.js"></script>
-    <script src="../js/text.js"></script>
-    <script src="../js/bootstrap5.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <style>
+  @import url("css/fonts.css");
+  @import url("css/util.css");
+  @import url("css/login.css");
+
+  #head {
+    position: sticky;
+  }
+
+
+  /*
   input:invalid{
     animation: shake 300ms;
     border:1px solid red;
@@ -119,4 +163,5 @@ togglePassword.addEventListener("click", function () {
     50% {transform: translateX(-4px);}
     75% {transform: translateX(4px);}
   }
+  */
 </style>

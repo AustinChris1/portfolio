@@ -1,5 +1,5 @@
 <?php
-include "header.php";
+// include "header.php";
 if (isset($_SESSION["message"])) { ?>
 <div class="alert alert-warning alert-dismissable fade show" role="alert">
     <?= $_SESSION["message"] ?>
@@ -7,5 +7,5 @@ if (isset($_SESSION["message"])) { ?>
 </div>
 <?php unset($_SESSION["message"]);}
 ?>
-<script src="../js/bootstrap5.bundle.min.js"></script>
-<script src="../js/jquery.min.js"></script>
+<!-- <script src="../js/bootstrap5.bundle.min.js"></script>
+<script src="../js/jquery.min.js"></script> -->

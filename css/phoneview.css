@@ -6,7 +6,8 @@
     #head{
       height: 8.5rem;
       overflow: hidden;
-      background-color: rgba(0, 0, 0, 0.664);
+      /*background-color: rgba(0, 0, 0, 0.664);*/
+      background-color: #000;
       position: fixed;
       width: 100%;
       top: 0%;
@@ -14,6 +15,7 @@
     right: 0%;
     text-decoration: none;
     z-index: 3;
+    padding-bottom: 4px;
     }
     .Top{
       margin-left: -3%;
@@ -23,7 +25,7 @@
       float: left;
       padding-top: 30px;
       margin-left: 30px;
-      height: 85%;
+      /*height: 85%;*/
     }
     ul{
       display: flex;
@@ -38,7 +40,7 @@
     .products {
       display: none;
   }
-    
+
     ul a {
       font-size: 13.5px;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -47,7 +49,7 @@
       color: orange;
       padding: 3px 3px 3px;
       box-shadow: 1px 1px 3px #D3D3D3;
-  
+
   }
   ul a:hover{
     opacity: 0.5;
@@ -99,7 +101,7 @@ display: inline-block;
       color: white;
     }
     nav {
-        display: none; 
+        display: none;
     }
     .menu:hover{
       opacity: 0.5;
@@ -126,7 +128,7 @@ display: inline-block;
       display: inline-block;
       float: left;
     }
-    
+
      .spec{
       margin-top: -2%;
       margin-left: -5.5%;
@@ -135,7 +137,7 @@ display: inline-block;
        text-decoration: none;
        color: whitesmoke;
        font-weight: bolder;
-    } 
+    }
      .specd{
       padding-left: -8vw;
       padding-top: -2vh;
@@ -146,10 +148,11 @@ display: inline-block;
        background-size: cover;
        background-clip: text;
        -webkit-background-clip: text;
-       color: transparent;    
+       /*color: transparent;*/
+       color: #707070;
      }
      #Specweb{
-      background-image: linear-gradient( 135deg, #D3D3D3 25%, white 100%);  
+      background-image: linear-gradient( 135deg, #D3D3D3 25%, white 100%);
       overflow: hidden;
       padding-top: 8%;
       margin-top: 30%;
@@ -187,9 +190,9 @@ display: inline-block;
     }
     #Specweb a:nth-of-type(2){
       margin-left: 12px;
-    
+
     }
-    
+
     .area{
       width: 60%;
       z-index: 1000;
@@ -226,7 +229,7 @@ display: inline-block;
       font-weight: bolder;
     display: inline-block;
       /* padding-top: -40px; */
-      
+
     }
     .texts{
       display: inline-block;
@@ -262,7 +265,7 @@ display: inline-block;
       transform:  translateX(0px);
       opacity: 1;
       transition: all 2s ease;
-    
+
     }
     .simg.reveal{
       position: relative;
@@ -274,13 +277,13 @@ display: inline-block;
       transform:  translateX(0px);
       opacity: 1;
       transition: all 2s ease;
-    
+
     }
 
 
       .stuff{
       display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
       width: 100%;
@@ -334,7 +337,7 @@ font-family: khula;    }
       /* margin-left: 10vw; */
       padding-top: 10vh;
       text-align: center;
-    
+
     }
     .overall{
       display: grid;
@@ -354,14 +357,14 @@ font-family: khula;    }
       /* padding-bottom: 15px; */
     }
     .over>img{
-      
+
       height: 12vh;
       width: 18vw;
     }
     .over>img:hover{
       height: 13vh;
       width: 19vw;
-      
+
     }
     .over:nth-of-type(even){
       margin-left: 10%;
@@ -394,7 +397,7 @@ font-family: khula;    }
       width: 100%;
       height: 80vh;
       background-color: #E1D9D1;
-    
+
     }
 
 /* styling the login page */
@@ -448,7 +451,7 @@ align-items: center;
 margin: auto;
 cursor: pointer;
 
-} 
+}
 #submit:hover{
 padding-right: 1.8em;
 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -596,7 +599,7 @@ align-items: center;
 margin: auto;
 cursor: pointer;
 
-} 
+}
 
 #regs:hover{
 padding-right: 1.8em;
@@ -624,7 +627,7 @@ a{
   font-size: 25px;
   font-family: 'luckiest guy' cursive;
   font-weight: bolder;
-  color: orange;    
+  color: orange;
   width: 50%;
   height: 50%;
   /* float: left; */
@@ -705,7 +708,7 @@ opacity: 0.7;
   background-color: #eeecec;
 }
 textarea:focus{
-  background-color: #eeecec;  
+  background-color: #eeecec;
   border-radius: 20px 20px 20px;
 
 }
@@ -723,7 +726,7 @@ textarea{
 .hello{
   font-size: 22px;
   font-family: cursive;
-  color: orange;    
+  color: orange;
   width: 95%;
   height: 20%;
   text-align: center;
@@ -738,7 +741,7 @@ textarea{
   padding-top: 5%;
   font-size: 13px;
   font-family: cursive;
-  color: #d3d3d32d;    
+  color: #d3d3d32d;
 }
 .tag i{
   color: whitesmoke;
@@ -842,11 +845,11 @@ margin-right: 10%;
         box-shadow: 0px 0px 5px #D3D3D3;
 
         }
-      
+
   .fi i:nth-of-type(n):hover{
   color: white;
   -webkit-text-stroke: transparent;
-  
+
   }
   .fi:nth-child(2):hover{
     background-color: rgb(100, 252, 62);
@@ -893,14 +896,14 @@ margin-right: 10%;
   cursor: pointer;
   margin: 5px;
  }
- 
+
  .subb span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
  }
- 
+
  .subb span:after {
   content: '»';
   position: absolute;
@@ -909,11 +912,11 @@ margin-right: 10%;
   right: -15px;
   transition: 0.5s;
  }
- 
+
  .subb:hover span {
   padding-right: 15px;
  }
- 
+
  .subb:hover span:after {
   opacity: 1;
   right: 0;
@@ -958,7 +961,7 @@ margin-right: 10%;
       transform:  translateY(0px);
       opacity: 1;
       transition: all 2s ease;
-    
+
     }
     .globes.reveal{
       position: relative;
@@ -970,7 +973,7 @@ margin-right: 10%;
       transform:  translateX(0px);
       opacity: 1;
       transition: all 2s ease;
-    
+
     }
     .over.reveal{
       position: relative;
@@ -984,8 +987,8 @@ margin-right: 10%;
       /* transform-style: preserve-3d; */
         opacity: 1;
       transition: all 1.2s ease;
-    
+
     }
 
 
-    }    
+    }
