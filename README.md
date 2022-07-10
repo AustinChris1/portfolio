@@ -8,3 +8,6 @@
 ### Register and Login System
 ### Admin Login
 ### Blog (Admin makes posts)
+
+#### Responsive issues
+Check it out here: <a href="http:spectrawebx.xyz">Spectra Web-X</a>
